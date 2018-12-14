@@ -80,7 +80,8 @@ public class JSTitleContainerView: UIView {
     public init(style: JSSegmentControlStyle.JSTitleContainerStyle) {
         self.style = style
         super.init(frame: .zero)
-        self.translatesAutoresizingMaskIntoConstraints = false
+        self.setupContainerView()
+        self.makeConstraints()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -96,11 +97,21 @@ public class JSTitleContainerView: UIView {
     // MARK: 重写父类方法
     public override func layoutSubviews() {
         super.layoutSubviews()
+        self.setupBadgeCorner()
+    }
+
+    // MARK: 设置方法
+    private func setupContainerView() {
+        self.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
+    private func setupBadgeCorner() {
         self.segmentBadgeLabel.layer.cornerRadius = self.segmentBadgeLabel.frame.size.height / 2.0
         self.segmentBadgeLabel.layer.masksToBounds = true
     }
     
-    public override func updateConstraints() {
+    // MARK: 私有方法
+    private func makeConstraints() {
         // 移除现有约束
         self.removeConstraints(self.constraints)
         
@@ -115,11 +126,8 @@ public class JSTitleContainerView: UIView {
         }
         
         self.badgeConstraints()
-        
-        super.updateConstraints()
     }
     
-    // MARK: 私有方法
     private func horizontalConstraints(withPosition position: TitleAndImagePosition) {
         let metrics: [String: Any] = ["margin": self.style.containerMargin]
         
