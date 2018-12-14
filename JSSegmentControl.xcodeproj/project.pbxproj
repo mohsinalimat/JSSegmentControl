@@ -8,12 +8,18 @@
 
 /* Begin PBXBuildFile section */
 		50C02E7821B9707B003669D3 /* JSSegmentControl.h in Headers */ = {isa = PBXBuildFile; fileRef = 50C02E3221B96C2C003669D3 /* JSSegmentControl.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		50D183D421C37BC100A5CB99 /* JSTitleContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50D183D321C37BC100A5CB99 /* JSTitleContainerView.swift */; };
+		50D183D621C37C6900A5CB99 /* JSSegmentControlStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50D183D521C37C6900A5CB99 /* JSSegmentControlStyle.swift */; };
+		50D183D821C3C3D900A5CB99 /* JSTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50D183D721C3C3D900A5CB99 /* JSTitleView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		50C02E2621B96B86003669D3 /* JSSegmentControl.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = JSSegmentControl.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		50C02E3221B96C2C003669D3 /* JSSegmentControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSSegmentControl.h; sourceTree = "<group>"; };
 		50C02E3321B96C2C003669D3 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		50D183D321C37BC100A5CB99 /* JSTitleContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSTitleContainerView.swift; sourceTree = "<group>"; };
+		50D183D521C37C6900A5CB99 /* JSSegmentControlStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSSegmentControlStyle.swift; sourceTree = "<group>"; };
+		50D183D721C3C3D900A5CB99 /* JSTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSTitleView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -27,6 +33,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		50828D1C21C296D6001FFB21 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				50D183D521C37C6900A5CB99 /* JSSegmentControlStyle.swift */,
+				50D183D721C3C3D900A5CB99 /* JSTitleView.swift */,
+				50D183D321C37BC100A5CB99 /* JSTitleContainerView.swift */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
 		50C02E1C21B96B86003669D3 = {
 			isa = PBXGroup;
 			children = (
@@ -46,6 +62,7 @@
 		50C02E3121B96C2C003669D3 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				50828D1C21C296D6001FFB21 /* Core */,
 				50C02E3221B96C2C003669D3 /* JSSegmentControl.h */,
 				50C02E3321B96C2C003669D3 /* Info.plist */,
 			);
@@ -131,6 +148,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				50D183D621C37C6900A5CB99 /* JSSegmentControlStyle.swift in Sources */,
+				50D183D421C37BC100A5CB99 /* JSTitleContainerView.swift in Sources */,
+				50D183D821C3C3D900A5CB99 /* JSTitleView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -278,6 +298,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				OTHER_SWIFT_FLAGS = "\"-D\" \"DEBUG\"";
 				PRODUCT_BUNDLE_IDENTIFIER = com.sibo.jian.JSSegmentControl;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
