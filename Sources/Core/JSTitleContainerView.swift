@@ -197,9 +197,11 @@ public class JSTitleContainerView: UIView {
     }
     
     private func badgeConstraints() {
-        var centerConstraints = [NSLayoutConstraint]()
-        centerConstraints.append(NSLayoutConstraint(item: self.segmentBadgeLabel, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .right, multiplier: 1.0, constant: 0.0))
-        centerConstraints.append(NSLayoutConstraint(item: self.segmentBadgeLabel, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1.0, constant: 0.0))
-        self.addConstraints(centerConstraints)
+        var sideConstraints = [NSLayoutConstraint]()
+        sideConstraints.append(NSLayoutConstraint(item: self.segmentBadgeLabel, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1.0, constant: 0.0))
+        sideConstraints.append(NSLayoutConstraint(item: self.segmentBadgeLabel, attribute: .right, relatedBy: .equal, toItem: self, attribute: .right, multiplier: 1.0, constant: 0.0))
+        self.addConstraints(sideConstraints)
+        let sizeConstraint = NSLayoutConstraint(item: self.segmentBadgeLabel, attribute: .width, relatedBy: .greaterThanOrEqual, toItem: self.segmentBadgeLabel, attribute: .height, multiplier: 1.0, constant: 0.0)
+        self.addConstraint(sizeConstraint)
     }
 }
