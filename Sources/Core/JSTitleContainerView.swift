@@ -87,6 +87,12 @@ public class JSTitleContainerView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    deinit {
+        #if DEBUG
+        print("DEINIT: \(#file)")
+        #endif
+    }
+    
     // MARK: 重写父类方法
     public override func layoutSubviews() {
         super.layoutSubviews()
