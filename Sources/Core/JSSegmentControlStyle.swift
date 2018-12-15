@@ -46,8 +46,46 @@ public struct JSSegmentControlStyle {
         public var containerMargin: CGFloat = 4.0
     }
     
+    // MARK: JSTitleStyle
+    public struct JSTitleStyle {
+        
+        /// 是否显示遮罩, 默认值为 false
+        public var isShowMasks: Bool = false
+        
+        /// 是否显示滚动条, 默认值为 false
+        public var isShowLines: Bool = false
+
+        /// TitleView 是否可以滚动, 默认值为 true
+        public var isTitleScroll: Bool = true
+        
+        /// TitleView 是否具有弹性效果, 默认值为 true
+        public var isTitleBounces: Bool = true
+
+        /// 遮罩高度, 默认值为 28.0
+        public var maskHeight: CGFloat = 28.0
+        
+        /// 遮罩颜色, 默认值为 UIColor.clear
+        public var maskColor: UIColor = UIColor.clear
+        
+        /// 遮罩裁剪半径, 默认值为 14.0
+        public var maskCornerRadius: CGFloat = 14.0
+        
+        /// 滚动条高度, 默认值为 2.0
+        public var lineHeight: CGFloat = 2.0
+        
+        /// 滚动条颜色, 默认值为 UIColor.clear
+        public var lineColor: UIColor = UIColor.clear
+        
+        /// 标题容器间距, 默认值为 12.0
+        public var containerMargin: CGFloat = 12.0
+        
+        /// 标题容器大小, 默认值为 .zero
+        public var containerSize: CGSize = .zero
+    }
+    
     // MARK: 公开属性
     public var titleContainerStyle: JSTitleContainerStyle = JSTitleContainerStyle()
+    public var titleStyle: JSTitleStyle = JSTitleStyle()
     
     // MAKR: 初始化
     public init() {
