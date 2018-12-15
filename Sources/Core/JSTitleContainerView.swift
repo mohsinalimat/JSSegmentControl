@@ -81,7 +81,6 @@ public class JSTitleContainerView: UIView {
         self.style = style
         super.init(frame: .zero)
         self.setupContainerView()
-        self.makeConstraints()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -99,7 +98,12 @@ public class JSTitleContainerView: UIView {
         super.layoutSubviews()
         self.setupBadgeCorner()
     }
-
+    
+    public override func updateConstraints() {
+        super.updateConstraints()
+        self.makeConstraints()
+    }
+    
     // MARK: 设置方法
     private func setupContainerView() {
         self.translatesAutoresizingMaskIntoConstraints = false
