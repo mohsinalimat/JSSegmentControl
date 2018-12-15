@@ -65,6 +65,7 @@ public class JSTitleView: UIScrollView {
     public override func didMoveToSuperview() {
         super.didMoveToSuperview()
         self.setupSubviews()
+        self.setupCurrentSelect()
     }
     
     // MARK: 设置方法
@@ -101,6 +102,12 @@ public class JSTitleView: UIScrollView {
             self.containerViews.append(containerView)
             self.addSubview(containerView)
         }
+    }
+    
+    private func setupCurrentSelect() {
+        let currentContainer = self.containerViews[self.currentIndex]
+        currentContainer.isSelected = true
+        self.titleDelegate?.title(self, didSelectAt: self.currentIndex)
     }
     
     // MARK: 私有方法
@@ -195,6 +202,9 @@ public class JSTitleView: UIScrollView {
     
     // MARK: Tap Gesture Action
     @objc private func containerViewPressed(_ tapGesture: UITapGestureRecognizer) {
-        
+        guard let selectContainer = tapGesture.view as? JSTitleContainerView else {
+            fatalError("请检查 tapGesture 所属的 View")
+        }
+        print("选中了: \(selectContainer.tag) ")
     }
 }
