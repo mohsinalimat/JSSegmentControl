@@ -47,7 +47,6 @@ public class JSTitleContainerView: UIView {
         imageView.backgroundColor = UIColor.clear
         imageView.contentMode = .center
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        self.insertSubview(imageView, at: 0)
         return imageView
     }()
     
@@ -59,7 +58,6 @@ public class JSTitleContainerView: UIView {
         label.textAlignment = .center
         label.highlightedTextColor = self.style.containerHighlightedTextColor
         label.translatesAutoresizingMaskIntoConstraints = false
-        self.insertSubview(label, at: 1)
         return label
     }()
     
@@ -70,7 +68,6 @@ public class JSTitleContainerView: UIView {
         label.textColor = self.style.badgeTextColor
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
-        self.insertSubview(label, at: 2)
         return label
     }()
 
@@ -107,11 +104,19 @@ public class JSTitleContainerView: UIView {
     // MARK: 设置方法
     private func setupContainerView() {
         self.translatesAutoresizingMaskIntoConstraints = false
+    public override func didMoveToSuperview() {
+        super.didMoveToSuperview()
+        self.setupSubviews()
     }
     
     private func setupBadgeCorner() {
         self.segmentBadgeLabel.layer.cornerRadius = self.segmentBadgeLabel.frame.size.height / 2.0
         self.segmentBadgeLabel.layer.masksToBounds = true
+    // MARK: 设置方法
+    private func setupSubviews() {
+        self.insertSubview(self.segmentImageView, at: 0)
+        self.insertSubview(self.segmentTitleLabel, at: 1)
+        self.insertSubview(self.segmentBadgeLabel, at: 2)
     }
     
     // MARK: 私有方法
