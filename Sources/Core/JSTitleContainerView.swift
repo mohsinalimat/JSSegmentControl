@@ -14,18 +14,21 @@ public class JSTitleContainerView: UIView {
     public var segmentTitle: String? {
         willSet {
             self.segmentTitleLabel.text = newValue
+            self.segmentTitleLabel.sizeToFit()
         }
     }
     
     public var segmentImage: UIImage? {
         willSet {
             self.segmentImageView.image = newValue
+            self.segmentImageView.sizeToFit()
         }
     }
 
     public var segmentHighlightedImage: UIImage? {
         willSet {
             self.segmentImageView.highlightedImage = newValue
+            self.segmentImageView.sizeToFit()
         }
     }
 
@@ -41,23 +44,50 @@ public class JSTitleContainerView: UIView {
             self.segmentImageView.isHighlighted = newValue
         }
     }
+    
+    public var containerSize: CGSize {
+        let margin = self.style.margin
+        
+        let imageViewSize = self.segmentImageView.bounds.size
+        let labelSize = self.segmentTitleLabel.bounds.size
+        
+        let imageViewWidth = imageViewSize.width
+        let imageViewHeight = imageViewSize.height
+        
+        let labelWidth = labelSize.width
+        let labelHeight = labelSize.height
+        
+        var maxWidth: CGFloat = 0.0
+        var maxHeight: CGFloat = 0.0
+        
+        switch self.style.position {
+        case .left, .right:
+            maxWidth = imageViewWidth + labelWidth + margin
+            maxHeight = max(imageViewHeight, labelHeight)
+        case .top, .bottom:
+            maxWidth = max(imageViewWidth, labelWidth)
+            maxHeight = imageViewHeight + labelHeight + margin
+        case .background:
+            maxWidth = max(imageViewWidth, labelWidth)
+            maxHeight = max(imageViewHeight, labelHeight)
+        }
+        return CGSize(width: maxWidth + 2.0 * margin, height: maxHeight + 2.0 * margin)
+    }
 
     private lazy var segmentImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.backgroundColor = UIColor.clear
         imageView.contentMode = .center
-        imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
     
     private lazy var segmentTitleLabel: UILabel = {
         let label = UILabel()
         label.backgroundColor = UIColor.clear
-        label.font = self.style.containerFont
-        label.textColor = self.style.containerTextColor
+        label.font = self.style.titleFont
+        label.textColor = self.style.titleTextColor
         label.textAlignment = .center
-        label.highlightedTextColor = self.style.containerHighlightedTextColor
-        label.translatesAutoresizingMaskIntoConstraints = false
+        label.highlightedTextColor = self.style.titleHighlightedTextColor
         return label
     }()
     
@@ -67,7 +97,8 @@ public class JSTitleContainerView: UIView {
         label.font = self.style.badgeFont
         label.textColor = self.style.badgeTextColor
         label.textAlignment = .center
-        label.translatesAutoresizingMaskIntoConstraints = false
+        label.layer.cornerRadius = 8.0
+        label.layer.masksToBounds = true
         return label
     }()
 
@@ -77,7 +108,6 @@ public class JSTitleContainerView: UIView {
     public init(style: JSSegmentControlStyle.JSTitleContainerStyle) {
         self.style = style
         super.init(frame: .zero)
-        self.setupContainerView()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -93,43 +123,28 @@ public class JSTitleContainerView: UIView {
     // MARK: 重写父类方法
     public override func layoutSubviews() {
         super.layoutSubviews()
-        self.setupBadgeCorner()
-    }
-    
-    public override func updateConstraints() {
-        super.updateConstraints()
         self.makeConstraints()
     }
     
-    // MARK: 设置方法
-    private func setupContainerView() {
-        self.translatesAutoresizingMaskIntoConstraints = false
     public override func didMoveToSuperview() {
         super.didMoveToSuperview()
         self.setupSubviews()
     }
     
-    private func setupBadgeCorner() {
-        self.segmentBadgeLabel.layer.cornerRadius = self.segmentBadgeLabel.frame.size.height / 2.0
-        self.segmentBadgeLabel.layer.masksToBounds = true
     // MARK: 设置方法
     private func setupSubviews() {
         self.insertSubview(self.segmentImageView, at: 0)
         self.insertSubview(self.segmentTitleLabel, at: 1)
         self.insertSubview(self.segmentBadgeLabel, at: 2)
     }
-    
+
     // MARK: 私有方法
     private func makeConstraints() {
-        // 移除现有约束
-        self.removeConstraints(self.constraints)
-        
-        // 添加新约束
-        switch self.style.containerPosition {
+        switch self.style.position {
         case .left, .right:
-            self.horizontalConstraints(withPosition: self.style.containerPosition)
+            self.horizontalConstraints(withPosition: self.style.position)
         case .top, .bottom:
-            self.verticalConstraints(withPosition: self.style.containerPosition)
+            self.verticalConstraints(withPosition: self.style.position)
         case .background:
             self.backgroundConstraints()
         }
@@ -138,79 +153,62 @@ public class JSTitleContainerView: UIView {
     }
     
     private func horizontalConstraints(withPosition position: TitleAndImagePosition) {
-        let metrics: [String: Any] = ["margin": self.style.containerMargin]
+        let margin = self.style.margin
         
-        var centerConstraints = [NSLayoutConstraint]()
-        centerConstraints.append(NSLayoutConstraint(item: self.segmentImageView, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1.0, constant: 0.0))
-        centerConstraints.append(NSLayoutConstraint(item: self.segmentTitleLabel, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1.0, constant: 0.0))
-        self.addConstraints(centerConstraints)
+        let containerHeight = self.bounds.height
         
-        var sideConstraints = [NSLayoutConstraint]()
+        let containerCenterY = containerHeight / 2.0
         
         switch position {
         case .left:
-            sideConstraints += NSLayoutConstraint.constraints(withVisualFormat: "H:|-(==margin)-[imageView]-(==margin)-[label]-(==margin)-|", options: [], metrics: metrics, views: ["imageView": self.segmentImageView, "label": self.segmentTitleLabel])
+            self.segmentImageView.frame.origin.x = margin
+            self.segmentTitleLabel.frame.origin.x = self.segmentImageView.frame.maxX + margin
         case .right:
-            sideConstraints += NSLayoutConstraint.constraints(withVisualFormat: "H:|-(==margin)-[label]-(==margin)-[imageView]-(==margin)-|", options: [], metrics: metrics, views: ["imageView": self.segmentImageView, "label": self.segmentTitleLabel])
+            self.segmentTitleLabel.frame.origin.x = margin
+            self.segmentImageView.frame.origin.x = self.segmentTitleLabel.frame.maxX + margin
         default:
             break
         }
         
-        sideConstraints += NSLayoutConstraint.constraints(withVisualFormat: "V:|-(==margin)-[imageView]-(==margin)-|", options: [], metrics: metrics, views: ["imageView": self.segmentImageView])
-        sideConstraints += NSLayoutConstraint.constraints(withVisualFormat: "V:|-(==margin)-[label]-(==margin)-|", options: [], metrics: metrics, views: ["label": self.segmentTitleLabel])
-        
-        self.addConstraints(sideConstraints)
+        self.segmentImageView.center.y = containerCenterY
+        self.segmentTitleLabel.center.y = containerCenterY
     }
     
     private func verticalConstraints(withPosition position: TitleAndImagePosition) {
-        let metrics: [String: Any] = ["margin": self.style.containerMargin]
+        let margin = self.style.margin
         
-        var centerConstraints = [NSLayoutConstraint]()
-        centerConstraints.append(NSLayoutConstraint(item: self.segmentImageView, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1.0, constant: 0.0))
-        centerConstraints.append(NSLayoutConstraint(item: self.segmentTitleLabel, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1.0, constant: 0.0))
-        self.addConstraints(centerConstraints)
+        let containerWidth = self.bounds.width
         
-        var sideConstraints = [NSLayoutConstraint]()
+        let containerCenterX = containerWidth / 2.0
         
         switch position {
         case .top:
-            sideConstraints += NSLayoutConstraint.constraints(withVisualFormat: "V:|-(==margin)-[imageView]-(==margin)-[label]-(==margin)-|", options: [], metrics: metrics, views: ["imageView": self.segmentImageView, "label": self.segmentTitleLabel])
+            self.segmentImageView.frame.origin.y = margin
+            self.segmentTitleLabel.frame.origin.y = self.segmentImageView.frame.maxY + margin
         case .bottom:
-            sideConstraints += NSLayoutConstraint.constraints(withVisualFormat: "V:|-(==margin)-[label]-(==margin)-[imageView]-(==margin)-|", options: [], metrics: metrics, views: ["imageView": self.segmentImageView, "label": self.segmentTitleLabel])
+            self.segmentTitleLabel.frame.origin.y = margin
+            self.segmentImageView.frame.origin.y = self.segmentTitleLabel.frame.maxY + margin
         default:
             break
         }
         
-        sideConstraints += NSLayoutConstraint.constraints(withVisualFormat: "H:|-(==margin)-[imageView]-(==margin)-|", options: [], metrics: metrics, views: ["imageView": self.segmentImageView])
-        sideConstraints += NSLayoutConstraint.constraints(withVisualFormat: "H:|-(==margin)-[label]-(==margin)-|", options: [], metrics: metrics, views: ["label": self.segmentTitleLabel])
-        
-        self.addConstraints(sideConstraints)
+        self.segmentImageView.center.x = containerCenterX
+        self.segmentTitleLabel.center.x = containerCenterX
     }
     
     private func backgroundConstraints() {
-        let metrics: [String: Any] = ["margin": self.style.containerMargin]
+        let containerWidth = self.bounds.width
+        let containerHeight = self.bounds.height
         
-        var centerConstraints = [NSLayoutConstraint]()
-        centerConstraints.append(NSLayoutConstraint(item: self.segmentImageView, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1.0, constant: 0.0))
-        centerConstraints.append(NSLayoutConstraint(item: self.segmentImageView, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1.0, constant: 0.0))
-        centerConstraints.append(NSLayoutConstraint(item: self.segmentTitleLabel, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1.0, constant: 0.0))
-        centerConstraints.append(NSLayoutConstraint(item: self.segmentTitleLabel, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1.0, constant: 0.0))
-        self.addConstraints(centerConstraints)
+        let containerCenter = CGPoint(x: containerWidth / 2.0, y: containerHeight / 2.0)
         
-        var sideConstraints = [NSLayoutConstraint]()
-        sideConstraints += NSLayoutConstraint.constraints(withVisualFormat: "H:|-(==margin)-[imageView]-(==margin)-|", options: [], metrics: metrics, views: ["imageView": self.segmentImageView])
-        sideConstraints += NSLayoutConstraint.constraints(withVisualFormat: "V:|-(==margin)-[imageView]-(==margin)-|", options: [], metrics: metrics, views: ["imageView": self.segmentImageView])
-        sideConstraints += NSLayoutConstraint.constraints(withVisualFormat: "H:|-(==margin)-[label]-(==margin)-|", options: [], metrics: metrics, views: ["label": self.segmentTitleLabel])
-        sideConstraints += NSLayoutConstraint.constraints(withVisualFormat: "V:|-(==margin)-[label]-(==margin)-|", options: [], metrics: metrics, views: ["label": self.segmentTitleLabel])
-        self.addConstraints(sideConstraints)
+        self.segmentImageView.center = containerCenter
+        self.segmentTitleLabel.center = containerCenter
     }
     
     private func badgeConstraints() {
-        var sideConstraints = [NSLayoutConstraint]()
-        sideConstraints.append(NSLayoutConstraint(item: self.segmentBadgeLabel, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1.0, constant: 0.0))
-        sideConstraints.append(NSLayoutConstraint(item: self.segmentBadgeLabel, attribute: .right, relatedBy: .equal, toItem: self, attribute: .right, multiplier: 1.0, constant: 0.0))
-        self.addConstraints(sideConstraints)
-        let sizeConstraint = NSLayoutConstraint(item: self.segmentBadgeLabel, attribute: .width, relatedBy: .greaterThanOrEqual, toItem: self.segmentBadgeLabel, attribute: .height, multiplier: 1.0, constant: 0.0)
-        self.addConstraint(sizeConstraint)
+        let margin: CGFloat = 16.0
+        self.segmentBadgeLabel.frame.size = CGSize(width: margin, height: margin)
+        self.segmentBadgeLabel.center = CGPoint(x: self.bounds.maxX, y: self.bounds.minY)
     }
 }
