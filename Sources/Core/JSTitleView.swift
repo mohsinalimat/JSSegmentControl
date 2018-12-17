@@ -30,7 +30,14 @@ public class JSTitleView: UIScrollView {
         return view
     }()
     
-    private var currentIndex: Int = 0
+    private var currentIndex: Int = 0 {
+        didSet {
+            guard self.currentIndex != oldValue else {
+                return
+            }
+            self.selectedIndexAnimated(withOldIndex: oldValue, andCurrentIndex: self.currentIndex)
+        }
+    }
 
     private var containerViews: [JSTitleContainerView] = [JSTitleContainerView]()
     
@@ -54,6 +61,24 @@ public class JSTitleView: UIScrollView {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: 公开方法
+    public func reloadData() {
+        self.subviews.forEach { $0.removeFromSuperview() }
+        self.containerViews.removeAll()
+        
+        self.setupSubviews()
+        self.setNeedsUpdateConstraints()
+        
+        self.currentIndex = 0
+    }
+    
+    public func selectedIndex(_ index: Int) {
+        guard index >= 0 && index < self.dataSourceCount else {
+            fatalError("设置的下标不合法")
+        }
+        self.currentIndex = index
     }
     
     // MARK: 重写父类方法
@@ -173,11 +198,34 @@ public class JSTitleView: UIScrollView {
         }
     }
     
+    private func selectedIndexAnimated(withOldIndex oldIndex: Int, andCurrentIndex currentIndex: Int) {
+        let oldContainerView = (oldIndex < 0 || oldIndex >= self.dataSourceCount) ? nil : self.containerViews[oldIndex]
+        let currentContainerView = self.containerViews[currentIndex]
+        
+        UIView.animate(withDuration: 0.3, animations: {
+            oldContainerView?.isSelected = false
+            currentContainerView.isSelected = true
+            if self.style.titleStyle.isShowLines {
+                self.titleLine.frame.size.width = currentContainerView.bounds.width
+                self.titleLine.center.x = currentContainerView.center.x
+            }
+            if self.style.titleStyle.isShowMasks {
+                self.titleMask.frame.size.width = currentContainerView.bounds.width
+                self.titleMask.center.x = currentContainerView.center.x
+            }
+        }, completion: { (_) in
+            
+        })
+        
+        self.titleDelegate?.title(self, didSelectAt: currentIndex)
+        self.titleDelegate?.title(self, didDeselectAt: oldIndex)
+    }
+    
     // MARK: Tap Gesture Action
     @objc private func containerViewPressed(_ tapGesture: UITapGestureRecognizer) {
         guard let selectContainer = tapGesture.view as? JSTitleContainerView else {
             fatalError("请检查 tapGesture 所属的 View")
         }
-        print("选中了: \(selectContainer.tag) ")
+        self.currentIndex = selectContainer.tag
     }
 }
