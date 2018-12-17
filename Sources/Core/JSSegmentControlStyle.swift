@@ -22,13 +22,13 @@ public struct JSSegmentControlStyle {
     public struct JSTitleContainerStyle {
         
         /// 标题容器中文字的字体, 默认值为 UIFont.systemFont(ofSize: 14.0)
-        public var containerFont: UIFont = UIFont.systemFont(ofSize: 14.0)
+        public var titleFont: UIFont = UIFont.systemFont(ofSize: 14.0)
         
         /// 标题容器中文字的默认颜色, 默认值为 UIColor.clear
-        public var containerTextColor: UIColor = UIColor.clear
+        public var titleTextColor: UIColor = UIColor.clear
         
         /// 标题容器中文字的高亮颜色, 默认值为 UIColor.clear
-        public var containerHighlightedTextColor: UIColor = UIColor.clear
+        public var titleHighlightedTextColor: UIColor = UIColor.clear
         
         /// 标题容器中 Badge 背景的默认颜色, 默认值为 UIColor.red
         public var badgeBackgroundColor: UIColor = UIColor.red
@@ -40,10 +40,10 @@ public struct JSSegmentControlStyle {
         public var badgeTextColor: UIColor = UIColor.white
         
         /// 标题容器中文字、图像位置, 默认值为 .left
-        public var containerPosition: TitleAndImagePosition = .left
+        public var position: TitleAndImagePosition = .left
         
         /// 标题容器中固定间隔, 默认值为 4.0
-        public var containerMargin: CGFloat = 4.0
+        public var margin: CGFloat = 4.0
     }
     
     // MARK: JSTitleStyle
