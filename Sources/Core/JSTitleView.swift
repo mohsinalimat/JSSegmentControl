@@ -87,7 +87,7 @@ public class JSTitleView: UIScrollView {
             self.addSubview(self.titleLine)
         }
         if self.style.titleStyle.isShowMasks {
-            self.addSubview(self.titleMask)
+            self.insertSubview(self.titleMask, at: 0)
         }
     }
     
