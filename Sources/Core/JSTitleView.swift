@@ -132,6 +132,9 @@ public class JSTitleView: UIScrollView {
     private func setupCurrentSelect() {
         let currentContainer = self.containerViews[self.currentIndex]
         currentContainer.isSelected = true
+        if self.style.titleStyle.isTitleScale {
+            currentContainer.scale = self.style.titleStyle.maxTitleScale
+        }
         self.titleDelegate?.title(self, didSelectAt: self.currentIndex)
     }
     
@@ -205,6 +208,10 @@ public class JSTitleView: UIScrollView {
         UIView.animate(withDuration: 0.3, animations: {
             oldContainerView?.isSelected = false
             currentContainerView.isSelected = true
+            if self.style.titleStyle.isTitleScale {
+                oldContainerView?.scale = 1.0
+                currentContainerView.scale = self.style.titleStyle.maxTitleScale
+            }
             if self.style.titleStyle.isShowLines {
                 self.titleLine.frame.size.width = currentContainerView.bounds.width
                 self.titleLine.center.x = currentContainerView.center.x

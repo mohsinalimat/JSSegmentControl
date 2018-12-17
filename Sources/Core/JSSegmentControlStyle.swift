@@ -54,12 +54,18 @@ public struct JSSegmentControlStyle {
         
         /// 是否显示滚动条, 默认值为 false
         public var isShowLines: Bool = false
+        
+        /// TitleView 是否可以缩放, 默认值为 false
+        public var isTitleScale: Bool = false
 
         /// TitleView 是否可以滚动, 默认值为 true
         public var isTitleScroll: Bool = true
         
         /// TitleView 是否具有弹性效果, 默认值为 true
         public var isTitleBounces: Bool = true
+        
+        /// TitleView 最大缩放倍数, 默认值为 1.15
+        public var maxTitleScale: CGFloat = 1.15
 
         /// 遮罩高度, 默认值为 28.0
         public var maskHeight: CGFloat = 28.0

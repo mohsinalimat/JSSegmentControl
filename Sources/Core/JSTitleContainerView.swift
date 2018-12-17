@@ -51,6 +51,12 @@ public class JSTitleContainerView: UIView {
         }
     }
     
+    public var scale: CGFloat = 1.0 {
+        willSet {
+            self.transform = CGAffineTransform(scaleX: newValue, y: newValue)
+        }
+    }
+    
     public var containerSize: CGSize {
         let margin = self.style.margin
         
