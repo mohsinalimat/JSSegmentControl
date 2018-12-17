@@ -34,7 +34,13 @@ public class JSTitleContainerView: UIView {
 
     public var segmentBadge: Int = 0 {
         willSet {
-            self.segmentBadgeLabel.text = newValue == 0 ? nil : "\(newValue)"
+            if newValue == 0 {
+                self.segmentBadgeLabel.isHidden = true
+            }
+            else {
+                self.segmentBadgeLabel.text = "\(newValue)"
+                self.segmentBadgeLabel.sizeToFit()
+            }
         }
     }
     
