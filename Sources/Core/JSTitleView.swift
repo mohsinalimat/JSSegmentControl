@@ -58,8 +58,8 @@ public class JSTitleView: UIScrollView {
     
     // MARK: 重写父类方法
     public override func updateConstraints() {
-        super.updateConstraints()
         self.makeConstraints()
+        super.updateConstraints()
     }
 
     public override func didMoveToSuperview() {
@@ -110,90 +110,63 @@ public class JSTitleView: UIScrollView {
         self.titleDelegate?.title(self, didSelectAt: self.currentIndex)
     }
     
+    private func setupScrollContentSize() {
+        let margin = self.style.titleStyle.containerMargin
+        
+        if self.style.titleStyle.isTitleScroll {
+            if let lastContainerView = self.containerViews.last {
+                self.contentSize = CGSize(width: lastContainerView.frame.maxX + margin, height: 0.0)
+            }
+        }
+    }
+    
     // MARK: 私有方法
     private func makeConstraints() {
-        // 移除现有约束
-        self.removeConstraints(self.constraints)
-
         self.makeTitleContainerConstraints()
         self.makeTitleLineAndMaskConstraints()
+        self.setupScrollContentSize()
     }
     
     private func makeTitleLineAndMaskConstraints() {
+        let lineHeight = self.style.titleStyle.lineHeight
+        let maskHeight = self.style.titleStyle.maskHeight
+        
         let currentContainer = self.containerViews[self.currentIndex]
         
         if self.style.titleStyle.isShowLines {
-            let metrics = ["lineHeight": self.style.titleStyle.lineHeight]
-            
-            let centerConstraint = NSLayoutConstraint(item: self.titleLine, attribute: .centerX, relatedBy: .equal, toItem: currentContainer, attribute: .centerX, multiplier: 1.0, constant: 0.0)
-            self.addConstraint(centerConstraint)
-
-            var sideConstraints = [NSLayoutConstraint]()
-            sideConstraints += NSLayoutConstraint.constraints(withVisualFormat: "V:[currentContainer]-0-[titleLine]", options: [], metrics: nil, views: ["currentContainer": currentContainer, "titleLine": self.titleLine])
-            self.addConstraints(sideConstraints)
-            
-            var sizeConstraints = [NSLayoutConstraint]()
-            sizeConstraints += NSLayoutConstraint.constraints(withVisualFormat: "H:[titleLine(==currentContainer)]", options: [], metrics: nil, views: ["currentContainer": currentContainer, "titleLine": self.titleLine])
-            sizeConstraints += NSLayoutConstraint.constraints(withVisualFormat: "V:[titleLine(==lineHeight)]", options: [], metrics: metrics, views: ["titleLine": self.titleLine])
-            self.addConstraints(sizeConstraints)
+            self.titleLine.frame.origin.y = currentContainer.frame.maxY
+            self.titleLine.frame.size = CGSize(width: currentContainer.bounds.width, height: lineHeight)
+            self.titleLine.center.x = currentContainer.center.x
         }
         
         if self.style.titleStyle.isShowMasks {
-            let metrics = ["maskHeight": self.style.titleStyle.maskHeight]
-            
-            var centerConstraints = [NSLayoutConstraint]()
-            centerConstraints.append(NSLayoutConstraint(item: self.titleMask, attribute: .centerX, relatedBy: .equal, toItem: currentContainer, attribute: .centerX, multiplier: 1.0, constant: 0.0))
-            centerConstraints.append(NSLayoutConstraint(item: self.titleMask, attribute: .centerY, relatedBy: .equal, toItem: currentContainer, attribute: .centerY, multiplier: 1.0, constant: 0.0))
-            self.addConstraints(centerConstraints)
-            
-            var sizeConstraints = [NSLayoutConstraint]()
-            sizeConstraints += NSLayoutConstraint.constraints(withVisualFormat: "H:[titleMask(==currentContainer)]", options: [], metrics: nil, views: ["currentContainer": currentContainer, "titleMask": self.titleMask])
-            sizeConstraints += NSLayoutConstraint.constraints(withVisualFormat: "V:[titleMask(==maskHeight)]", options: [], metrics: metrics, views: ["titleMask": self.titleMask])
-            self.addConstraints(sizeConstraints)
+            self.titleMask.frame.size = CGSize(width: currentContainer.bounds.width, height: maskHeight)
+            self.titleMask.center = currentContainer.center
         }
     }
     
     private func makeTitleContainerConstraints() {
         // TitleView 禁止滚动, Container 宽度平分
         if !self.style.titleStyle.isTitleScroll {
-            let metrics: [String: Any] = ["containerWidth": self.bounds.width / CGFloat(self.dataSourceCount), "containerHeight": self.bounds.height - self.style.titleStyle.lineHeight]
-            var oldIndex: Int = 0
+            var containerX: CGFloat = 0.0
+            let containerY: CGFloat = 0.0
+            let containerWidth: CGFloat = self.bounds.width / CGFloat(self.dataSourceCount)
+            let containerHeight: CGFloat = self.bounds.height - self.style.titleStyle.lineHeight
             for index in 0..<self.dataSourceCount {
-                let currentContainer = self.containerViews[index]
-                let oldContainer = self.containerViews[oldIndex]
-
-                var sideConstraints = [NSLayoutConstraint]()
-                sideConstraints += NSLayoutConstraint.constraints(withVisualFormat: "H:\(index == 0 ? "|" : "[oldContainer]")-0-[currentContainer]", options: [], metrics: nil, views: ["oldContainer": oldContainer, "currentContainer": currentContainer])
-                sideConstraints += NSLayoutConstraint.constraints(withVisualFormat: "V:|-0-[currentContainer]", options: [], metrics: nil, views: ["oldContainer": oldContainer, "currentContainer": currentContainer])
-                self.addConstraints(sideConstraints)
-                
-                var sizeConstraints = [NSLayoutConstraint]()
-                sizeConstraints += NSLayoutConstraint.constraints(withVisualFormat: "H:[currentContainer(containerWidth)]", options: [], metrics: metrics, views: ["currentContainer": currentContainer])
-                sizeConstraints += NSLayoutConstraint.constraints(withVisualFormat: "V:[currentContainer(containerHeight)]", options: [], metrics: metrics, views: ["currentContainer": currentContainer])
-                self.addConstraints(sizeConstraints)
-                
-                oldIndex = index
+                containerX = CGFloat(index) * containerWidth
+                self.containerViews[index].frame = CGRect(x: containerX, y: containerY, width: containerWidth, height: containerHeight)
             }
         }
         else {
-            let metrics: [String: Any] = ["margin": self.style.titleStyle.containerMargin, "containerWidth": self.style.titleStyle.containerSize.width, "containerHeight": self.style.titleStyle.containerSize.height]
+            let margin = self.style.titleStyle.containerMargin
             var oldIndex: Int = 0
             for index in 0..<self.dataSourceCount {
                 let currentContainer = self.containerViews[index]
                 let oldContainer = self.containerViews[oldIndex]
                 
-                let centerConstraint = NSLayoutConstraint(item: currentContainer, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1.0, constant: 0.0)
-                self.addConstraint(centerConstraint)
-
-                let sideConstraints = NSLayoutConstraint.constraints(withVisualFormat: "H:\(index == 0 ? "|" : "[oldContainer]")-(==margin)-[currentContainer]\(index == self.dataSourceCount - 1 ? "-(==margin)-|" : "")", options: [], metrics: metrics, views: ["oldContainer": oldContainer, "currentContainer": currentContainer])
-                self.addConstraints(sideConstraints)
-
-                if self.style.titleStyle.containerSize != .zero {
-                    var sizeConstraints = [NSLayoutConstraint]()
-                    sizeConstraints += NSLayoutConstraint.constraints(withVisualFormat: "H:[currentContainer(containerWidth)]", options: [], metrics: metrics, views: ["currentContainer": currentContainer])
-                    sizeConstraints += NSLayoutConstraint.constraints(withVisualFormat: "V:[currentContainer(containerHeight)]", options: [], metrics: metrics, views: ["currentContainer": currentContainer])
-                    self.addConstraints(sizeConstraints)
-                }
+                currentContainer.frame.origin.x = index == 0 ? margin : oldContainer.frame.maxX + margin
+                currentContainer.frame.size = self.style.titleStyle.containerSize != .zero ?self.style.titleStyle.containerSize : currentContainer.containerSize
+                currentContainer.center.y = self.bounds.height / 2.0
                 
                 oldIndex = index
             }
