@@ -30,14 +30,7 @@ public class JSTitleView: UIScrollView {
         return view
     }()
     
-    private var currentIndex: Int = 0 {
-        didSet {
-            guard self.currentIndex != oldValue else {
-                return
-            }
-            self.selectedIndexAnimated(withOldIndex: oldValue, andCurrentIndex: self.currentIndex)
-        }
-    }
+    private var currentIndex: Int = 0
 
     private var containerViews: [JSTitleContainerView] = [JSTitleContainerView]()
     
@@ -67,18 +60,18 @@ public class JSTitleView: UIScrollView {
     public func reloadData() {
         self.subviews.forEach { $0.removeFromSuperview() }
         self.containerViews.removeAll()
-        
+                
         self.setupSubviews()
         self.setNeedsUpdateConstraints()
         
-        self.currentIndex = 0
+        self.selectedIndexAnimated(withOldIndex: self.currentIndex, andCurrentIndex: 0)
     }
     
     public func selectedIndex(_ index: Int) {
         guard index >= 0 && index < self.dataSourceCount else {
             fatalError("设置的下标不合法")
         }
-        self.currentIndex = index
+        self.selectedIndexAnimated(withOldIndex: self.currentIndex, andCurrentIndex: index)
     }
     
     // MARK: 重写父类方法
@@ -207,6 +200,10 @@ public class JSTitleView: UIScrollView {
     }
     
     private func selectedIndexAnimated(withOldIndex oldIndex: Int, andCurrentIndex currentIndex: Int) {
+        guard oldIndex != currentIndex else {
+            return
+        }
+        
         let oldContainerView = (oldIndex < 0 || oldIndex >= self.dataSourceCount) ? nil : self.containerViews[oldIndex]
         let currentContainerView = self.containerViews[currentIndex]
         
@@ -231,6 +228,8 @@ public class JSTitleView: UIScrollView {
         
         self.titleDelegate?.title(self, didSelectAt: currentIndex)
         self.titleDelegate?.title(self, didDeselectAt: oldIndex)
+        
+        self.currentIndex = currentIndex
     }
     
     private func selectedIndexScrollAnimated(withCurrentIndex currentIndex: Int) {
@@ -258,6 +257,6 @@ public class JSTitleView: UIScrollView {
         guard let selectContainer = tapGesture.view as? JSTitleContainerView else {
             fatalError("请检查 tapGesture 所属的 View")
         }
-        self.currentIndex = selectContainer.tag
+        self.selectedIndexAnimated(withOldIndex: self.currentIndex, andCurrentIndex: selectContainer.tag)
     }
 }
