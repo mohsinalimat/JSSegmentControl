@@ -85,6 +85,7 @@ public class JSTitleView: UIScrollView {
     public override func updateConstraints() {
         self.makeConstraints()
         super.updateConstraints()
+        self.setupCurrentSelectScale()
     }
 
     public override func didMoveToSuperview() {
@@ -132,10 +133,14 @@ public class JSTitleView: UIScrollView {
     private func setupCurrentSelect() {
         let currentContainer = self.containerViews[self.currentIndex]
         currentContainer.isSelected = true
+        self.titleDelegate?.title(self, didSelectAt: self.currentIndex)
+    }
+    
+    private func setupCurrentSelectScale() {
+        let currentContainer = self.containerViews[self.currentIndex]
         if self.style.titleStyle.isTitleScale {
             currentContainer.scale = self.style.titleStyle.maxTitleScale
         }
-        self.titleDelegate?.title(self, didSelectAt: self.currentIndex)
     }
     
     private func setupScrollContentSize() {
