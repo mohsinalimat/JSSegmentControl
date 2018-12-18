@@ -73,6 +73,36 @@ public class JSTitleView: UIScrollView {
         }
         self.selectedIndexAnimated(fromOldIndex: self.currentIndex, toCurrentIndex: index)
     }
+    
+    public func selectedIndexAnimated(withProgress progress: CGFloat, fromOldIndex oldIndex: Int, toCurrentIndex currentIndex: Int) {
+        guard oldIndex >= 0 && oldIndex < self.dataSourceCount else {
+            return
+        }
+        guard currentIndex >= 0 && currentIndex < self.dataSourceCount else {
+            return
+        }
+        
+        let oldContainerView = self.containerViews[oldIndex]
+        let currentContainerView = self.containerViews[currentIndex]
+        
+        let xDistance = currentContainerView.frame.minX - oldContainerView.frame.minX
+        let widthDistance = currentContainerView.frame.width - oldContainerView.frame.width
+        
+        if self.style.titleStyle.isShowLines {
+            self.titleLine.frame.origin.x = oldContainerView.frame.minX + xDistance * progress
+            self.titleLine.frame.size.width = oldContainerView.frame.width + widthDistance * progress
+        }
+        if self.style.titleStyle.isShowMasks {
+            self.titleMask.frame.origin.x = oldContainerView.frame.minX + xDistance * progress
+            self.titleMask.frame.size.width = oldContainerView.frame.width + widthDistance * progress
+        }
+        if self.style.titleStyle.isTitleScale {
+            let scaleDistance = self.style.titleStyle.maxTitleScale - 1.0
+            oldContainerView.scale = self.style.titleStyle.maxTitleScale - scaleDistance * progress
+            currentContainerView.scale = 1.0 + scaleDistance * progress
+        }
+    }
+    
     public func selectedIndexScrollAnimated(toCurrentIndex currentIndex: Int) {
         let margin = self.style.titleStyle.containerMargin
         
