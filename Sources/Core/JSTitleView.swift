@@ -73,6 +73,29 @@ public class JSTitleView: UIScrollView {
         }
         self.selectedIndexAnimated(fromOldIndex: self.currentIndex, toCurrentIndex: index)
     }
+    public func selectedIndexScrollAnimated(toCurrentIndex currentIndex: Int) {
+        let margin = self.style.titleStyle.containerMargin
+        
+        if self.contentSize.width != self.bounds.width + margin {
+            let currentContainerView = self.containerViews[currentIndex]
+            var offSetX = currentContainerView.center.x - self.bounds.width * 0.5
+            if offSetX < 0.0 {
+                offSetX = 0.0
+            }
+            var maxOffSetX = self.contentSize.width - self.bounds.width
+            if maxOffSetX < 0.0 {
+                maxOffSetX = 0.0
+            }
+            if offSetX > maxOffSetX {
+                offSetX = maxOffSetX
+            }
+            self.setContentOffset(CGPoint(x: offSetX, y: 0.0), animated: true)
+        }
+        
+        self.titleDelegate?.title(self, didSelectAt: currentIndex)
+        self.titleDelegate?.title(self, didDeselectAt: self.currentIndex)
+        
+        self.currentIndex = currentIndex
     }
     
     // MARK: 重写父类方法
@@ -226,31 +249,6 @@ public class JSTitleView: UIScrollView {
         }, completion: { (_) in
             self.selectedIndexScrollAnimated(toCurrentIndex: currentIndex)
         })
-        
-        self.titleDelegate?.title(self, didSelectAt: currentIndex)
-        self.titleDelegate?.title(self, didDeselectAt: oldIndex)
-        
-        self.currentIndex = currentIndex
-    }
-    
-    private func selectedIndexScrollAnimated(toCurrentIndex currentIndex: Int) {
-        let margin = self.style.titleStyle.containerMargin
-        
-        if self.contentSize.width != self.bounds.width + margin {
-            let currentContainerView = self.containerViews[currentIndex]
-            var offSetX = currentContainerView.center.x - self.bounds.width * 0.5
-            if offSetX < 0.0 {
-                offSetX = 0.0
-            }
-            var maxOffSetX = self.contentSize.width - self.bounds.width
-            if maxOffSetX < 0.0 {
-                maxOffSetX = 0.0
-            }
-            if offSetX > maxOffSetX {
-                offSetX = maxOffSetX
-            }
-            self.setContentOffset(CGPoint(x: offSetX, y: 0.0), animated: true)
-        }
     }
     
     // MARK: Tap Gesture Action
