@@ -148,6 +148,7 @@ public class JSTitleView: UIScrollView {
         self.showsHorizontalScrollIndicator = false
         self.showsVerticalScrollIndicator = false
         self.scrollsToTop = false
+        self.clipsToBounds = false
     }
 
     private func setupSubviews() {
