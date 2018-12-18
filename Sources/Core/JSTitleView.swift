@@ -83,8 +83,8 @@ public class JSTitleView: UIScrollView {
     
     // MARK: 重写父类方法
     public override func updateConstraints() {
-        self.makeConstraints()
         super.updateConstraints()
+        self.makeConstraints()
         self.setupCurrentSelectScale()
     }
 
