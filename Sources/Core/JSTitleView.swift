@@ -60,18 +60,19 @@ public class JSTitleView: UIScrollView {
     public func reloadData() {
         self.subviews.forEach { $0.removeFromSuperview() }
         self.containerViews.removeAll()
-                
+        
         self.setupSubviews()
         self.setNeedsUpdateConstraints()
         
-        self.selectedIndexAnimated(withOldIndex: self.currentIndex, andCurrentIndex: 0)
+        self.selectedIndexAnimated(fromOldIndex: self.currentIndex, toCurrentIndex: 0)
     }
     
     public func selectedIndex(_ index: Int) {
         guard index >= 0 && index < self.dataSourceCount else {
             fatalError("设置的下标不合法")
         }
-        self.selectedIndexAnimated(withOldIndex: self.currentIndex, andCurrentIndex: index)
+        self.selectedIndexAnimated(fromOldIndex: self.currentIndex, toCurrentIndex: index)
+    }
     }
     
     // MARK: 重写父类方法
@@ -199,7 +200,7 @@ public class JSTitleView: UIScrollView {
         }
     }
     
-    private func selectedIndexAnimated(withOldIndex oldIndex: Int, andCurrentIndex currentIndex: Int) {
+    private func selectedIndexAnimated(fromOldIndex oldIndex: Int, toCurrentIndex currentIndex: Int) {
         guard oldIndex != currentIndex else {
             return
         }
@@ -223,7 +224,7 @@ public class JSTitleView: UIScrollView {
                 self.titleMask.center.x = currentContainerView.center.x
             }
         }, completion: { (_) in
-            self.selectedIndexScrollAnimated(withCurrentIndex: currentIndex)
+            self.selectedIndexScrollAnimated(toCurrentIndex: currentIndex)
         })
         
         self.titleDelegate?.title(self, didSelectAt: currentIndex)
@@ -232,7 +233,7 @@ public class JSTitleView: UIScrollView {
         self.currentIndex = currentIndex
     }
     
-    private func selectedIndexScrollAnimated(withCurrentIndex currentIndex: Int) {
+    private func selectedIndexScrollAnimated(toCurrentIndex currentIndex: Int) {
         let margin = self.style.titleStyle.containerMargin
         
         if self.contentSize.width != self.bounds.width + margin {
@@ -257,6 +258,6 @@ public class JSTitleView: UIScrollView {
         guard let selectContainer = tapGesture.view as? JSTitleContainerView else {
             fatalError("请检查 tapGesture 所属的 View")
         }
-        self.selectedIndexAnimated(withOldIndex: self.currentIndex, andCurrentIndex: selectContainer.tag)
+        self.selectedIndexAnimated(fromOldIndex: self.currentIndex, toCurrentIndex: selectContainer.tag)
     }
 }
