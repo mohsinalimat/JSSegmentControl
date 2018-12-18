@@ -89,9 +89,20 @@ public struct JSSegmentControlStyle {
         public var containerSize: CGSize = .zero
     }
     
+    // MARK: JSContentStyle
+    public struct JSContentStyle {
+        
+        /// ContentView 是否可以滚动, 默认值为 true
+        public var isContentScroll: Bool = true
+        
+        /// ContentView 是否具有弹性效果, 默认值为 true
+        public var isContentBounces: Bool = true
+    }
+    
     // MARK: 公开属性
     public var titleContainerStyle: JSTitleContainerStyle = JSTitleContainerStyle()
     public var titleStyle: JSTitleStyle = JSTitleStyle()
+    public var contentStyle: JSContentStyle = JSContentStyle()
     
     // MAKR: 初始化
     public init() {
