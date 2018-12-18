@@ -17,3 +17,13 @@ public protocol JSTitleDelegate: NSObjectProtocol {
     func title(_ title: JSTitleView, didSelectAt index: Int)
     func title(_ title: JSTitleView, didDeselectAt index: Int)
 }
+
+public protocol JSContentDataSource: NSObjectProtocol {
+    func numberOfContents() -> Int
+    func content(_ content: JSContentView, containerAt index: Int) -> UIViewController
+}
+
+public protocol JSContentDelegate: NSObjectProtocol {
+    func content(_ content: JSContentView, didSelectAt index: Int)
+    func content(_ content: JSContentView, didDeselectAt index: Int)
+}
