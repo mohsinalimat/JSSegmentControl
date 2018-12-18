@@ -85,6 +85,12 @@ public class JSTitleContainerView: UIView {
         }
         return CGSize(width: maxWidth + 2.0 * margin, height: maxHeight + 2.0 * margin)
     }
+    
+    private lazy var containerView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.clear
+        return view
+    }()
 
     private lazy var segmentImageView: UIImageView = {
         let imageView = UIImageView()
@@ -145,13 +151,17 @@ public class JSTitleContainerView: UIView {
     
     // MARK: 设置方法
     private func setupSubviews() {
-        self.insertSubview(self.segmentImageView, at: 0)
-        self.insertSubview(self.segmentTitleLabel, at: 1)
-        self.insertSubview(self.segmentBadgeLabel, at: 2)
+        self.addSubview(self.containerView)
+        
+        self.containerView.insertSubview(self.segmentImageView, at: 0)
+        self.containerView.insertSubview(self.segmentTitleLabel, at: 1)
+        self.containerView.insertSubview(self.segmentBadgeLabel, at: 2)
     }
 
     // MARK: 私有方法
     private func makeConstraints() {
+        self.containerView.bounds.size = self.containerSize
+        
         switch self.style.position {
         case .left, .right:
             self.horizontalConstraints(withPosition: self.style.position)
@@ -160,16 +170,13 @@ public class JSTitleContainerView: UIView {
         case .background:
             self.backgroundConstraints()
         }
-        
         self.badgeConstraints()
     }
     
     private func horizontalConstraints(withPosition position: TitleAndImagePosition) {
         let margin = self.style.margin
         
-        let containerHeight = self.bounds.height
-        
-        let containerCenterY = containerHeight / 2.0
+        let containerCenterY = self.containerView.bounds.height / 2.0
         
         switch position {
         case .left:
@@ -184,14 +191,14 @@ public class JSTitleContainerView: UIView {
         
         self.segmentImageView.center.y = containerCenterY
         self.segmentTitleLabel.center.y = containerCenterY
+        
+        self.containerView.center = CGPoint(x: self.bounds.width / 2.0, y: self.bounds.height / 2.0)
     }
     
     private func verticalConstraints(withPosition position: TitleAndImagePosition) {
         let margin = self.style.margin
         
-        let containerWidth = self.bounds.width
-        
-        let containerCenterX = containerWidth / 2.0
+        let containerCenterX = self.containerView.bounds.width / 2.0
         
         switch position {
         case .top:
@@ -206,21 +213,25 @@ public class JSTitleContainerView: UIView {
         
         self.segmentImageView.center.x = containerCenterX
         self.segmentTitleLabel.center.x = containerCenterX
+        
+        self.containerView.center = CGPoint(x: self.bounds.width / 2.0, y: self.bounds.height / 2.0)
     }
     
     private func backgroundConstraints() {
-        let containerWidth = self.bounds.width
-        let containerHeight = self.bounds.height
+        let containerWidth = self.containerView.bounds.width
+        let containerHeight = self.containerView.bounds.height
         
         let containerCenter = CGPoint(x: containerWidth / 2.0, y: containerHeight / 2.0)
         
         self.segmentImageView.center = containerCenter
         self.segmentTitleLabel.center = containerCenter
+        
+        self.containerView.center = CGPoint(x: self.bounds.width / 2.0, y: self.bounds.height / 2.0)
     }
     
     private func badgeConstraints() {
         let margin: CGFloat = 16.0
         self.segmentBadgeLabel.frame.size = CGSize(width: margin, height: margin)
-        self.segmentBadgeLabel.center = CGPoint(x: self.bounds.maxX, y: self.bounds.minY)
+        self.segmentBadgeLabel.center = CGPoint(x: self.containerView.bounds.maxX, y: self.containerView.bounds.minY)
     }
 }
