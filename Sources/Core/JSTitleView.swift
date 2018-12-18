@@ -8,11 +8,22 @@
 
 import UIKit
 
-public class JSTitleView: UIScrollView {
+public class JSTitleView: UIView {
 
     // MARK: 属性
     public weak var titleDataSource: JSTitleDataSource?
     public weak var titleDelegate: JSTitleDelegate?
+    
+    private lazy var titleScrollView: UIScrollView = {
+        let scrollView = UIScrollView(frame: self.bounds)
+        scrollView.bounces = self.style.titleStyle.isTitleBounces
+        scrollView.isScrollEnabled = self.style.titleStyle.isTitleScroll
+        scrollView.showsHorizontalScrollIndicator = false
+        scrollView.showsVerticalScrollIndicator = false
+        scrollView.scrollsToTop = false
+        scrollView.clipsToBounds = false
+        return scrollView
+    }()
 
     private lazy var titleLine: UIView = {
         let view = UIView()
@@ -49,7 +60,6 @@ public class JSTitleView: UIScrollView {
     public init(frame: CGRect, segmentStyle style: JSSegmentControlStyle) {
         self.style = style
         super.init(frame: frame)
-        self.setupScrollView()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -58,7 +68,7 @@ public class JSTitleView: UIScrollView {
     
     // MARK: 公开方法
     public func reloadData() {
-        self.subviews.forEach { $0.removeFromSuperview() }
+        self.titleScrollView.subviews.forEach { $0.removeFromSuperview() }
         self.containerViews.removeAll()
         
         self.setupSubviews()
@@ -108,20 +118,20 @@ public class JSTitleView: UIScrollView {
     public func selectedIndexScrollAnimated(toCurrentIndex currentIndex: Int) {
         let margin = self.style.titleStyle.containerMargin
         
-        if self.contentSize.width != self.bounds.width + margin {
+        if self.titleScrollView.contentSize.width != self.bounds.width + margin {
             let currentContainerView = self.containerViews[currentIndex]
             var offSetX = currentContainerView.center.x - self.bounds.width * 0.5
             if offSetX < 0.0 {
                 offSetX = 0.0
             }
-            var maxOffSetX = self.contentSize.width - self.bounds.width
+            var maxOffSetX = self.titleScrollView.contentSize.width - self.bounds.width
             if maxOffSetX < 0.0 {
                 maxOffSetX = 0.0
             }
             if offSetX > maxOffSetX {
                 offSetX = maxOffSetX
             }
-            self.setContentOffset(CGPoint(x: offSetX, y: 0.0), animated: true)
+            self.titleScrollView.setContentOffset(CGPoint(x: offSetX, y: 0.0), animated: true)
         }
         
         self.titleDelegate?.title(self, didSelectAt: self.currentIndex)
@@ -144,26 +154,18 @@ public class JSTitleView: UIScrollView {
     }
     
     // MARK: 设置方法
-    private func setupScrollView() {
-        self.bounces = self.style.titleStyle.isTitleBounces
-        self.isScrollEnabled = self.style.titleStyle.isTitleScroll
-        self.showsHorizontalScrollIndicator = false
-        self.showsVerticalScrollIndicator = false
-        self.scrollsToTop = false
-        self.clipsToBounds = false
-    }
-
     private func setupSubviews() {
+        self.addSubview(self.titleScrollView)
         self.setupTitleContainer()
         self.setupTitleLineAndMask()
     }
     
     private func setupTitleLineAndMask() {
         if self.style.titleStyle.isShowLines {
-            self.addSubview(self.titleLine)
+            self.titleScrollView.addSubview(self.titleLine)
         }
         if self.style.titleStyle.isShowMasks {
-            self.insertSubview(self.titleMask, at: 0)
+            self.titleScrollView.insertSubview(self.titleMask, at: 0)
         }
     }
     
@@ -176,7 +178,7 @@ public class JSTitleView: UIScrollView {
             let tapGesture = UITapGestureRecognizer(target: self, action: #selector(containerViewPressed(_:)))
             containerView.addGestureRecognizer(tapGesture)
             self.containerViews.append(containerView)
-            self.addSubview(containerView)
+            self.titleScrollView.addSubview(containerView)
         }
     }
     
@@ -198,7 +200,7 @@ public class JSTitleView: UIScrollView {
         
         if self.style.titleStyle.isTitleScroll {
             if let lastContainerView = self.containerViews.last {
-                self.contentSize = CGSize(width: lastContainerView.frame.maxX + margin, height: 0.0)
+                self.titleScrollView.contentSize = CGSize(width: lastContainerView.frame.maxX + margin, height: 0.0)
             }
         }
     }
