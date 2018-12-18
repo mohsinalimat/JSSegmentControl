@@ -30,8 +30,8 @@ public class JSTitleView: UIScrollView {
         return view
     }()
     
+    private var oldIndex: Int = 0
     private var currentIndex: Int = 0
-
     private var containerViews: [JSTitleContainerView] = [JSTitleContainerView]()
     
     private var dataSourceCount: Int {
@@ -64,14 +64,16 @@ public class JSTitleView: UIScrollView {
         self.setupSubviews()
         self.setNeedsUpdateConstraints()
         
-        self.selectedIndexAnimated(fromOldIndex: self.currentIndex, toCurrentIndex: 0)
+        self.currentIndex = 0
+        self.selectedIndexAnimated(fromOldIndex: self.oldIndex, toCurrentIndex: self.currentIndex)
     }
     
     public func selectedIndex(_ index: Int) {
         guard index >= 0 && index < self.dataSourceCount else {
             fatalError("设置的下标不合法")
         }
-        self.selectedIndexAnimated(fromOldIndex: self.currentIndex, toCurrentIndex: index)
+        self.currentIndex = index
+        self.selectedIndexAnimated(fromOldIndex: self.oldIndex, toCurrentIndex: self.currentIndex)
     }
     
     public func selectedIndexAnimated(withProgress progress: CGFloat, fromOldIndex oldIndex: Int, toCurrentIndex currentIndex: Int) {
@@ -122,10 +124,10 @@ public class JSTitleView: UIScrollView {
             self.setContentOffset(CGPoint(x: offSetX, y: 0.0), animated: true)
         }
         
-        self.titleDelegate?.title(self, didSelectAt: currentIndex)
-        self.titleDelegate?.title(self, didDeselectAt: self.currentIndex)
+        self.titleDelegate?.title(self, didSelectAt: self.currentIndex)
+        self.titleDelegate?.title(self, didDeselectAt: self.oldIndex)
         
-        self.currentIndex = currentIndex
+        self.oldIndex = currentIndex
     }
     
     // MARK: 重写父类方法
@@ -287,6 +289,7 @@ public class JSTitleView: UIScrollView {
         guard let selectContainer = tapGesture.view as? JSTitleContainerView else {
             fatalError("请检查 tapGesture 所属的 View")
         }
-        self.selectedIndexAnimated(fromOldIndex: self.currentIndex, toCurrentIndex: selectContainer.tag)
+        self.currentIndex = selectContainer.tag
+        self.selectedIndexAnimated(fromOldIndex: self.oldIndex, toCurrentIndex: self.currentIndex)
     }
 }
