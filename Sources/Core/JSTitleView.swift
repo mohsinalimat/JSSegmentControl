@@ -14,6 +14,12 @@ public class JSTitleView: UIView {
     public weak var titleDataSource: JSTitleDataSource?
     public weak var titleDelegate: JSTitleDelegate?
     
+    private let style: JSSegmentControlStyle
+    
+    private var oldIndex: Int = 0
+    private var currentIndex: Int = 0
+    private var containerViews: [JSTitleContainerView] = [JSTitleContainerView]()
+    
     private lazy var titleScrollView: UIScrollView = {
         let scrollView = UIScrollView(frame: self.bounds)
         scrollView.bounces = self.style.titleStyle.isTitleBounces
@@ -40,11 +46,7 @@ public class JSTitleView: UIView {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    
-    private var oldIndex: Int = 0
-    private var currentIndex: Int = 0
-    private var containerViews: [JSTitleContainerView] = [JSTitleContainerView]()
-    
+
     private var dataSourceCount: Int {
         get {
             guard let titleDataSource = self.titleDataSource else {
@@ -54,8 +56,6 @@ public class JSTitleView: UIView {
         }
     }
     
-    public let style: JSSegmentControlStyle
-
     // MARK: 初始化
     public init(frame: CGRect, segmentStyle style: JSSegmentControlStyle) {
         self.style = style
