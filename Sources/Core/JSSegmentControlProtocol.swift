@@ -8,8 +8,19 @@
 
 import Foundation
 
+@objc public protocol JSSegmentControlDataSource: NSObjectProtocol {
+    @objc func numberOfSegments() -> Int
+    @objc func segmentControl(_ segmentControl: JSSegmentControl, titleAt index: Int) -> JSTitleContainerView
+    @objc func segmentControl(_ segmentControl: JSSegmentControl, contentAt index: Int) -> UIViewController
 }
 
+@objc public protocol JSSegmentControlDelegate: NSObjectProtocol {
+    @objc optional func segmentControl(_ segmentControl: JSSegmentControl, didSelectAt index: Int)
+    @objc optional func segmentControl(_ segmentControl: JSSegmentControl, didDeselectAt index: Int)
+    @objc optional func segmentControl(_ segmentControl: JSSegmentControl, controllerWillAppear controller: UIViewController, at index: Int)
+    @objc optional func segmentControl(_ segmentControl: JSSegmentControl, controllerDidAppear controller: UIViewController, at index: Int)
+    @objc optional func segmentControl(_ segmentControl: JSSegmentControl, controllerWillDisappear controller: UIViewController, at index: Int)
+    @objc optional func segmentControl(_ segmentControl: JSSegmentControl, controllerDidDisappear controller: UIViewController, at index: Int)
 }
 
 @objc public protocol JSTitleDataSource: NSObjectProtocol {
