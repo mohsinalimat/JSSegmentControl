@@ -8,11 +8,11 @@
 
 import UIKit
 
-public class JSContentView: UIView {
+class JSContentView: UIView {
 
     // MARK: 属性
-    public weak var contentDataSource: JSContentDataSource?
-    public weak var contentDelegate: JSContentDelegate?
+    weak var contentDataSource: JSContentDataSource?
+    weak var contentDelegate: JSContentDelegate?
     
     private let style: JSSegmentControlStyle
     private let identifier = "com.sibo.jian.content.container"
@@ -60,7 +60,7 @@ public class JSContentView: UIView {
     }
 
     // MARK: 初始化
-    public init(frame: CGRect, segmentStyle style: JSSegmentControlStyle, parentViewController parent: UIViewController) {
+    init(frame: CGRect, segmentStyle style: JSSegmentControlStyle, parentViewController parent: UIViewController) {
         self.style = style
         self.parent = parent
         super.init(frame: frame)
@@ -80,14 +80,14 @@ public class JSContentView: UIView {
     }
     
     // MARK: 公开方法
-    public func dequeueReusableContent(at index: Int) -> UIViewController? {
+    func dequeueReusableContent(at index: Int) -> UIViewController? {
         guard self.childViewControllers.keys.contains(index) else {
             return nil
         }
         return self.childViewControllers[index]
     }
     
-    public func selectedIndex(_ index: Int) {
+    func selectedIndex(_ index: Int) {
         guard index >= 0 && index < self.dataSourceCount else {
             fatalError("设置的下标不合法")
         }
@@ -108,7 +108,7 @@ public class JSContentView: UIView {
         self.contentCollectionView.setContentOffset(CGPoint(x: offSetX, y: 0.0), animated: !self.isScrolledMorePage)
     }
 
-    public func reloadData() {
+    func reloadData() {
         for (_, value) in self.childViewControllers {
             JSContentView.removeChildViewController(value)
         }
@@ -124,14 +124,14 @@ public class JSContentView: UIView {
         self.selectedIndex(0)
     }
     
-    public class func removeChildViewController(_ childViewController: UIViewController) {
+    class func removeChildViewController(_ childViewController: UIViewController) {
         childViewController.willMove(toParentViewController: nil)
         childViewController.view.removeFromSuperview()
         childViewController.removeFromParentViewController()
     }
     
     // MARK: 重写父类方法
-    public override func layoutSubviews() {
+    override func layoutSubviews() {
         super.layoutSubviews()
         if let currentViewController = self.currentViewController {
             currentViewController.view.frame = self.bounds
@@ -233,17 +233,17 @@ public class JSContentView: UIView {
 extension JSContentView: UICollectionViewDataSource {
     
     // MARK: UICollectionViewDataSource
-    public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.dataSourceCount
     }
     
-    public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: self.identifier, for: indexPath)
         cell.contentView.subviews.forEach { $0.removeFromSuperview() }
         return cell
     }
 
-    public func numberOfSections(in collectionView: UICollectionView) -> Int {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
 }
@@ -251,11 +251,11 @@ extension JSContentView: UICollectionViewDataSource {
 extension JSContentView: UICollectionViewDelegate {
     
     // MARK: UICollectionViewDelegate
-    public func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         self.setupChildViewController(to: cell, atIndex: indexPath.row)
     }
     
-    public func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+    func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         if !self.isForbidAdjustPosition {
             if self.currentIndex == indexPath.row {
                 let oldViewController = self.childViewControllers[self.oldIndex]
@@ -298,7 +298,7 @@ extension JSContentView: UICollectionViewDelegate {
 extension JSContentView: UIScrollViewDelegate {
     
     // MARK: UIScrollViewDelegate
-    public func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if self.isForbidAdjustPosition ||
            scrollView.contentOffset.x <= 0.0 ||
            scrollView.contentOffset.x >= scrollView.contentSize.width - scrollView.bounds.width {
@@ -331,13 +331,13 @@ extension JSContentView: UIScrollViewDelegate {
         self.contentDelegate?.contentSelectedAnimated(withProgress: progress, from: self.oldIndex, to: self.currentIndex)
     }
     
-    public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         let currentIndex = Int(scrollView.contentOffset.x / self.bounds.width)
         self.contentDelegate?.contentSelectedAnimated(withProgress: 1.0, from: currentIndex, to: currentIndex)
         self.contentDelegate?.contentSelectedScrollAnimated(to: currentIndex)
     }
     
-    public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         self.oldOffsetX = scrollView.contentOffset.x
         self.isForbidAdjustPosition = false
     }

@@ -111,11 +111,11 @@ extension JSSegmentControl: JSTitleDelegate {
 extension JSSegmentControl: JSContentDataSource {
 
     // MARK: JSContentDataSource
-    public func numberOfContents() -> Int {
+    func numberOfContents() -> Int {
         return self.dataSourceCount
     }
     
-    public func content(_ content: JSContentView, containerAt index: Int) -> UIViewController {
+    func content(_ content: JSContentView, containerAt index: Int) -> UIViewController {
         guard let dataSource = self.dataSource else {
             fatalError("请实现 JSSegmentControlDataSource 协议")
         }
@@ -126,11 +126,11 @@ extension JSSegmentControl: JSContentDataSource {
 extension JSSegmentControl: JSContentDelegate {
 
     // MARK: JSContentDelegate
-    public func contentSelectedAnimated(withProgress progress: CGFloat, from oldIndex: Int, to currentIndex: Int) {
+    func contentSelectedAnimated(withProgress progress: CGFloat, from oldIndex: Int, to currentIndex: Int) {
         self.titleView.selectedIndexAnimated(withProgress: progress, fromOldIndex: oldIndex, toCurrentIndex: currentIndex)
     }
     
-    public func contentSelectedScrollAnimated(to currentIndex: Int) {
+    func contentSelectedScrollAnimated(to currentIndex: Int) {
         self.titleView.selectedIndexScrollAnimated(toCurrentIndex: currentIndex)
     }
     

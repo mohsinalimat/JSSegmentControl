@@ -33,12 +33,12 @@ import Foundation
     @objc func title(_ title: JSTitleView, didDeselectAt index: Int)
 }
 
-@objc public protocol JSContentDataSource: NSObjectProtocol {
+@objc protocol JSContentDataSource: NSObjectProtocol {
     @objc func numberOfContents() -> Int
     @objc func content(_ content: JSContentView, containerAt index: Int) -> UIViewController
 }
 
-@objc public protocol JSContentDelegate: NSObjectProtocol {
+@objc protocol JSContentDelegate: NSObjectProtocol {
     @objc func contentSelectedAnimated(withProgress progress: CGFloat, from oldIndex: Int, to currentIndex: Int)
     @objc func contentSelectedScrollAnimated(to currentIndex: Int)
     @objc optional func content(_ content: JSContentView, controllerWillAppear controller: UIViewController, at index: Int)
