@@ -17,8 +17,6 @@ import Foundation
     @objc func title(_ title: JSTitleView, containerAt index: Int) -> JSTitleContainerView
 }
 
-    func content(_ content: JSContentView, didSelectAt index: Int)
-    func content(_ content: JSContentView, didDeselectAt index: Int)
 @objc public protocol JSTitleDelegate: NSObjectProtocol {
     @objc func title(_ title: JSTitleView, didSelectAt index: Int)
     @objc func title(_ title: JSTitleView, didDeselectAt index: Int)
