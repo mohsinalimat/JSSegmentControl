@@ -7,19 +7,29 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		50335E1121C8EF1200321174 /* JSContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50335E1021C8EF1200321174 /* JSContentView.swift */; };
+		50335E1521CA11E500321174 /* JSSegmentControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50335E1421CA11E500321174 /* JSSegmentControl.swift */; };
+		50A2707B21CA8F59008EE1E0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50A2707A21CA8F59008EE1E0 /* Foundation.framework */; };
+		50A2707D21CA8F5D008EE1E0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50A2707C21CA8F5D008EE1E0 /* UIKit.framework */; };
 		50C02E7821B9707B003669D3 /* JSSegmentControl.h in Headers */ = {isa = PBXBuildFile; fileRef = 50C02E3221B96C2C003669D3 /* JSSegmentControl.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		50D183D421C37BC100A5CB99 /* JSTitleContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50D183D321C37BC100A5CB99 /* JSTitleContainerView.swift */; };
 		50D183D621C37C6900A5CB99 /* JSSegmentControlStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50D183D521C37C6900A5CB99 /* JSSegmentControlStyle.swift */; };
 		50D183D821C3C3D900A5CB99 /* JSTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50D183D721C3C3D900A5CB99 /* JSTitleView.swift */; };
+		50D914CC21C3E9A800640A5D /* JSSegmentControlProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50D914CB21C3E9A800640A5D /* JSSegmentControlProtocol.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		50335E1021C8EF1200321174 /* JSContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSContentView.swift; sourceTree = "<group>"; };
+		50335E1421CA11E500321174 /* JSSegmentControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSSegmentControl.swift; sourceTree = "<group>"; };
+		50A2707A21CA8F59008EE1E0 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		50A2707C21CA8F5D008EE1E0 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		50C02E2621B96B86003669D3 /* JSSegmentControl.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = JSSegmentControl.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		50C02E3221B96C2C003669D3 /* JSSegmentControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSSegmentControl.h; sourceTree = "<group>"; };
 		50C02E3321B96C2C003669D3 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		50D183D321C37BC100A5CB99 /* JSTitleContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSTitleContainerView.swift; sourceTree = "<group>"; };
 		50D183D521C37C6900A5CB99 /* JSSegmentControlStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSSegmentControlStyle.swift; sourceTree = "<group>"; };
 		50D183D721C3C3D900A5CB99 /* JSTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSTitleView.swift; sourceTree = "<group>"; };
+		50D914CB21C3E9A800640A5D /* JSSegmentControlProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSSegmentControlProtocol.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -27,6 +37,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				50A2707D21CA8F5D008EE1E0 /* UIKit.framework in Frameworks */,
+				50A2707B21CA8F59008EE1E0 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -36,11 +48,23 @@
 		50828D1C21C296D6001FFB21 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				50D914CB21C3E9A800640A5D /* JSSegmentControlProtocol.swift */,
 				50D183D521C37C6900A5CB99 /* JSSegmentControlStyle.swift */,
+				50335E1421CA11E500321174 /* JSSegmentControl.swift */,
 				50D183D721C3C3D900A5CB99 /* JSTitleView.swift */,
 				50D183D321C37BC100A5CB99 /* JSTitleContainerView.swift */,
+				50335E1021C8EF1200321174 /* JSContentView.swift */,
 			);
 			path = Core;
+			sourceTree = "<group>";
+		};
+		50A2707921CA8F58008EE1E0 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				50A2707C21CA8F5D008EE1E0 /* UIKit.framework */,
+				50A2707A21CA8F59008EE1E0 /* Foundation.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		50C02E1C21B96B86003669D3 = {
@@ -48,6 +72,7 @@
 			children = (
 				50C02E3121B96C2C003669D3 /* Sources */,
 				50C02E2721B96B86003669D3 /* Products */,
+				50A2707921CA8F58008EE1E0 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -148,8 +173,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				50D914CC21C3E9A800640A5D /* JSSegmentControlProtocol.swift in Sources */,
 				50D183D621C37C6900A5CB99 /* JSSegmentControlStyle.swift in Sources */,
 				50D183D421C37BC100A5CB99 /* JSTitleContainerView.swift in Sources */,
+				50335E1121C8EF1200321174 /* JSContentView.swift in Sources */,
+				50335E1521CA11E500321174 /* JSSegmentControl.swift in Sources */,
 				50D183D821C3C3D900A5CB99 /* JSTitleView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
