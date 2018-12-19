@@ -122,9 +122,14 @@ public class JSTitleView: UIView {
     
     public func selectedIndexScrollAnimated(toCurrentIndex currentIndex: Int) {
         let margin = self.style.titleStyle.containerMargin
+
+        let oldContainerView = self.containerViews[self.oldIndex]
+        let currentContainerView = self.containerViews[currentIndex]
+        
+        oldContainerView.isSelected = false
+        currentContainerView.isSelected = true
         
         if self.titleScrollView.contentSize.width != self.bounds.width + margin {
-            let currentContainerView = self.containerViews[currentIndex]
             var offSetX = currentContainerView.center.x - self.bounds.width * 0.5
             if offSetX < 0.0 {
                 offSetX = 0.0
@@ -139,7 +144,7 @@ public class JSTitleView: UIView {
             self.titleScrollView.setContentOffset(CGPoint(x: offSetX, y: 0.0), animated: true)
         }
         
-        self.titleDelegate?.title(self, didSelectAt: self.currentIndex)
+        self.titleDelegate?.title(self, didSelectAt: currentIndex)
         self.titleDelegate?.title(self, didDeselectAt: self.oldIndex)
         
         self.oldIndex = currentIndex
@@ -272,8 +277,6 @@ public class JSTitleView: UIView {
         let currentContainerView = self.containerViews[currentIndex]
         
         UIView.animate(withDuration: 0.3, animations: {
-            oldContainerView?.isSelected = false
-            currentContainerView.isSelected = true
             if self.style.titleStyle.isTitleScale {
                 oldContainerView?.scale = 1.0
                 currentContainerView.scale = self.style.titleStyle.maxTitleScale
