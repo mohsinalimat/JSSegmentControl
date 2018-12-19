@@ -134,19 +134,19 @@ extension JSSegmentControl: JSContentDelegate {
         self.titleView.selectedIndexScrollAnimated(toCurrentIndex: currentIndex)
     }
     
-    private func content(_ content: JSContentView, controllerWillAppear controller: UIViewController, at index: Int) {
+    func content(_ content: JSContentView, controllerWillAppear controller: UIViewController, at index: Int) {
         self.delegate?.segmentControl?(self, controllerWillAppear: controller, at: index)
     }
     
-    private func content(_ content: JSContentView, controllerDidAppear controller: UIViewController, at index: Int) {
+    func content(_ content: JSContentView, controllerDidAppear controller: UIViewController, at index: Int) {
         self.delegate?.segmentControl?(self, controllerDidAppear: controller, at: index)
     }
     
-    private func content(_ content: JSContentView, controllerWillDisappear controller: UIViewController, at index: Int) {
+    func content(_ content: JSContentView, controllerWillDisappear controller: UIViewController, at index: Int) {
         self.delegate?.segmentControl?(self, controllerWillDisappear: controller, at: index)
     }
     
-    private func content(_ content: JSContentView, controllerDidDisappear controller: UIViewController, at index: Int) {
+    func content(_ content: JSContentView, controllerDidDisappear controller: UIViewController, at index: Int) {
         self.delegate?.segmentControl?(self, controllerDidDisappear: controller, at: index)
     }
 }
