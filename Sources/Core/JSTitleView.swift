@@ -65,6 +65,13 @@ public class JSTitleView: UIView {
     }
     
     // MARK: 公开方法
+    public func dequeueReusableTitle(at index: Int) -> JSTitleContainerView? {
+        guard (0..<self.containerViews.count).contains(index) else {
+            return nil
+        }
+        return self.containerViews[index]
+    }
+    
     public func reloadData() {
         self.titleScrollView.subviews.forEach { $0.removeFromSuperview() }
         self.containerViews.removeAll()
