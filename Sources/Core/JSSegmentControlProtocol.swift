@@ -28,3 +28,13 @@ import Foundation
 }
 
 @objc public protocol JSContentDelegate: NSObjectProtocol {
+    @objc func contentSelectedAnimated(withProgress progress: CGFloat, from oldIndex: Int, to currentIndex: Int)
+    @objc func contentSelectedScrollAnimated(to currentIndex: Int)
+    @objc optional func content(_ content: JSContentView, controllerWillAppear controller: UIViewController, at index: Int)
+    @objc optional func content(_ content: JSContentView, controllerDidAppear controller: UIViewController, at index: Int)
+    @objc optional func content(_ content: JSContentView, controllerWillDisappear controller: UIViewController, at index: Int)
+    @objc optional func content(_ content: JSContentView, controllerDidDisappear controller: UIViewController, at index: Int)
+}
+
+
+
