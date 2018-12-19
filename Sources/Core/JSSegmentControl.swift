@@ -83,11 +83,11 @@ public class JSSegmentControl: UIView {
 extension JSSegmentControl: JSTitleDataSource {
 
     // MARK: JSTitleDataSource
-    public func numberOfTitles() -> Int {
+    func numberOfTitles() -> Int {
         return self.dataSourceCount
     }
     
-    public func title(_ title: JSTitleView, containerAt index: Int) -> JSTitleContainerView {
+    func title(_ title: JSTitleView, containerAt index: Int) -> JSTitleContainerView {
         guard let dataSource = self.dataSource else {
             fatalError("请实现 JSSegmentControlDataSource 协议")
         }
@@ -98,12 +98,12 @@ extension JSSegmentControl: JSTitleDataSource {
 extension JSSegmentControl: JSTitleDelegate {
 
     // MARK: JSTitleDelegate
-    public func title(_ title: JSTitleView, didSelectAt index: Int) {
+    func title(_ title: JSTitleView, didSelectAt index: Int) {
         self.contentView.selectedIndex(index)
         self.delegate?.segmentControl?(self, didSelectAt: index)
     }
     
-    public func title(_ title: JSTitleView, didDeselectAt index: Int) {
+    func title(_ title: JSTitleView, didDeselectAt index: Int) {
         self.delegate?.segmentControl?(self, didDeselectAt: index)
     }
 }

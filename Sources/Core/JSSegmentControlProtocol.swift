@@ -23,12 +23,12 @@ import Foundation
     @objc optional func segmentControl(_ segmentControl: JSSegmentControl, controllerDidDisappear controller: UIViewController, at index: Int)
 }
 
-@objc public protocol JSTitleDataSource: NSObjectProtocol {
+@objc protocol JSTitleDataSource: NSObjectProtocol {
     @objc func numberOfTitles() -> Int
     @objc func title(_ title: JSTitleView, containerAt index: Int) -> JSTitleContainerView
 }
 
-@objc public protocol JSTitleDelegate: NSObjectProtocol {
+@objc protocol JSTitleDelegate: NSObjectProtocol {
     @objc func title(_ title: JSTitleView, didSelectAt index: Int)
     @objc func title(_ title: JSTitleView, didDeselectAt index: Int)
 }

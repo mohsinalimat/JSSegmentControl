@@ -8,11 +8,11 @@
 
 import UIKit
 
-public class JSTitleView: UIView {
+class JSTitleView: UIView {
 
     // MARK: 属性
-    public weak var titleDataSource: JSTitleDataSource?
-    public weak var titleDelegate: JSTitleDelegate?
+    weak var titleDataSource: JSTitleDataSource?
+    weak var titleDelegate: JSTitleDelegate?
     
     private let style: JSSegmentControlStyle
     
@@ -55,7 +55,7 @@ public class JSTitleView: UIView {
     }
     
     // MARK: 初始化
-    public init(frame: CGRect, segmentStyle style: JSSegmentControlStyle) {
+    init(frame: CGRect, segmentStyle style: JSSegmentControlStyle) {
         self.style = style
         super.init(frame: frame)
     }
@@ -65,14 +65,14 @@ public class JSTitleView: UIView {
     }
     
     // MARK: 公开方法
-    public func dequeueReusableTitle(at index: Int) -> JSTitleContainerView? {
+    func dequeueReusableTitle(at index: Int) -> JSTitleContainerView? {
         guard (0..<self.containerViews.count).contains(index) else {
             return nil
         }
         return self.containerViews[index]
     }
     
-    public func reloadData() {
+    func reloadData() {
         self.titleScrollView.subviews.forEach { $0.removeFromSuperview() }
         self.containerViews.removeAll()
         
@@ -85,7 +85,7 @@ public class JSTitleView: UIView {
         self.selectedIndexScrollAnimated(toCurrentIndex: 0)
     }
     
-    public func selectedIndex(_ index: Int) {
+    func selectedIndex(_ index: Int) {
         guard index >= 0 && index < self.dataSourceCount else {
             fatalError("设置的下标不合法")
         }
@@ -93,7 +93,7 @@ public class JSTitleView: UIView {
         self.selectedIndexAnimated(fromOldIndex: self.oldIndex, toCurrentIndex: self.currentIndex)
     }
     
-    public func selectedIndexAnimated(withProgress progress: CGFloat, fromOldIndex oldIndex: Int, toCurrentIndex currentIndex: Int) {
+    func selectedIndexAnimated(withProgress progress: CGFloat, fromOldIndex oldIndex: Int, toCurrentIndex currentIndex: Int) {
         guard oldIndex >= 0 && oldIndex < self.dataSourceCount else {
             return
         }
@@ -122,7 +122,7 @@ public class JSTitleView: UIView {
         }
     }
     
-    public func selectedIndexScrollAnimated(toCurrentIndex currentIndex: Int) {
+    func selectedIndexScrollAnimated(toCurrentIndex currentIndex: Int) {
         let margin = self.style.titleStyle.containerMargin
 
         let oldContainerView = self.containerViews[self.oldIndex]
@@ -153,13 +153,13 @@ public class JSTitleView: UIView {
     }
     
     // MARK: 重写父类方法
-    public override func updateConstraints() {
+    override func updateConstraints() {
         super.updateConstraints()
         self.makeConstraints()
         self.setupCurrentSelectScale()
     }
 
-    public override func didMoveToSuperview() {
+    override func didMoveToSuperview() {
         super.didMoveToSuperview()
         self.setupSubviews()
         self.setupCurrentSelect()
