@@ -66,6 +66,9 @@ public struct JSSegmentControlStyle {
         
         /// TitleView 最大缩放倍数, 默认值为 1.15
         public var maxTitleScale: CGFloat = 1.15
+        
+        /// TitleView 的默认高度
+        public var titleHeight: CGFloat = 44.0
 
         /// 遮罩高度, 默认值为 28.0
         public var maskHeight: CGFloat = 28.0
