@@ -175,7 +175,6 @@ public class JSTitleContainerView: UIView {
     
     private func horizontalConstraints(withPosition position: TitleAndImagePosition) {
         let margin = self.style.margin
-        
         let containerCenterY = self.containerView.bounds.height / 2.0
         
         switch position {
@@ -188,16 +187,13 @@ public class JSTitleContainerView: UIView {
         default:
             break
         }
-        
         self.segmentImageView.center.y = containerCenterY
         self.segmentTitleLabel.center.y = containerCenterY
-        
         self.containerView.center = CGPoint(x: self.bounds.width / 2.0, y: self.bounds.height / 2.0)
     }
     
     private func verticalConstraints(withPosition position: TitleAndImagePosition) {
         let margin = self.style.margin
-        
         let containerCenterX = self.containerView.bounds.width / 2.0
         
         switch position {
@@ -210,27 +206,22 @@ public class JSTitleContainerView: UIView {
         default:
             break
         }
-        
         self.segmentImageView.center.x = containerCenterX
         self.segmentTitleLabel.center.x = containerCenterX
-        
         self.containerView.center = CGPoint(x: self.bounds.width / 2.0, y: self.bounds.height / 2.0)
     }
     
     private func backgroundConstraints() {
-        let containerWidth = self.containerView.bounds.width
-        let containerHeight = self.containerView.bounds.height
-        
-        let containerCenter = CGPoint(x: containerWidth / 2.0, y: containerHeight / 2.0)
+        let containerCenter = CGPoint(x: self.containerView.bounds.width / 2.0, y: self.containerView.bounds.height / 2.0)
         
         self.segmentImageView.center = containerCenter
         self.segmentTitleLabel.center = containerCenter
-        
         self.containerView.center = CGPoint(x: self.bounds.width / 2.0, y: self.bounds.height / 2.0)
     }
     
     private func badgeConstraints() {
         let margin: CGFloat = 16.0
+        
         self.segmentBadgeLabel.frame.size = CGSize(width: margin, height: margin)
         self.segmentBadgeLabel.center = CGPoint(x: self.containerView.bounds.maxX, y: self.containerView.bounds.minY)
     }
