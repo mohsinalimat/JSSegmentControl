@@ -76,11 +76,13 @@ public class JSTitleView: UIView {
         self.titleScrollView.subviews.forEach { $0.removeFromSuperview() }
         self.containerViews.removeAll()
         
+        self.oldIndex = 0
+        self.currentIndex = 0
+        
         self.setupSubviews()
         self.setNeedsUpdateConstraints()
         
-        self.currentIndex = 0
-        self.selectedIndexAnimated(fromOldIndex: self.oldIndex, toCurrentIndex: self.currentIndex)
+        self.selectedIndexScrollAnimated(toCurrentIndex: 0)
     }
     
     public func selectedIndex(_ index: Int) {
