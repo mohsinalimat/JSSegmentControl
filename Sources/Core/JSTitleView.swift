@@ -209,7 +209,6 @@ public class JSTitleView: UIView {
     
     private func setupScrollContentSize() {
         let margin = self.style.titleStyle.containerMargin
-        
         if self.style.titleStyle.isTitleScroll {
             if let lastContainerView = self.containerViews.last {
                 self.titleScrollView.contentSize = CGSize(width: lastContainerView.frame.maxX + margin, height: 0.0)
@@ -235,7 +234,6 @@ public class JSTitleView: UIView {
             self.titleLine.frame.size = CGSize(width: currentContainer.bounds.width, height: lineHeight)
             self.titleLine.center.x = currentContainer.center.x
         }
-        
         if self.style.titleStyle.isShowMasks {
             self.titleMask.frame.size = CGSize(width: currentContainer.bounds.width, height: maskHeight)
             self.titleMask.center = currentContainer.center
@@ -243,7 +241,6 @@ public class JSTitleView: UIView {
     }
     
     private func makeTitleContainerConstraints() {
-        // TitleView 禁止滚动, Container 宽度平分
         if !self.style.titleStyle.isTitleScroll {
             var containerX: CGFloat = 0.0
             let containerY: CGFloat = 0.0
