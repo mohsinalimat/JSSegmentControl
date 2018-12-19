@@ -34,7 +34,6 @@ public class JSTitleView: UIView {
     private lazy var titleLine: UIView = {
         let view = UIView()
         view.backgroundColor = self.style.titleStyle.lineColor
-        view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
@@ -43,7 +42,6 @@ public class JSTitleView: UIView {
         view.backgroundColor = self.style.titleStyle.maskColor
         view.layer.cornerRadius = self.style.titleStyle.maskCornerRadius
         view.layer.masksToBounds = true
-        view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
 
