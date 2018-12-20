@@ -61,6 +61,12 @@ class JSTitleView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    deinit {
+        #if DEBUG
+        print("DEINIT: \(#file)")
+        #endif
+    }
+    
     // MARK: 公开方法
     func dequeueReusableTitle(at index: Int) -> JSTitleContainerView? {
         guard (0..<self.containerViews.count).contains(index) else {
