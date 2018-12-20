@@ -40,10 +40,9 @@ pod 'JSSegmentControl', '~> 1.0.0'
 
 ## 待完成
 
-- [ ]增加 `RxSwift` 接口，便于通过 `RxSwift` 管理数据状态。
-- [ ]增加自定义 `Title View` 和 `Content View` 位置的方法。
-- [ ]增加允许动态修改 `Title Container View` 中 `Title` 颜色的方法。
-
+- [ ] 增加 `RxSwift` 接口，便于通过 `RxSwift` 管理数据状态。
+- [ ] 增加自定义 `Title View` 和 `Content View` 位置的方法。
+- [ ] 增加允许动态修改 `Title Container View` 中 `Title` 颜色的方法。
 
 ## 作者
 
