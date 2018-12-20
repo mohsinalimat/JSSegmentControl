@@ -150,8 +150,8 @@ class JSTitleView: UIView {
     }
     
     // MARK: 重写父类方法
-    override func updateConstraints() {
-        super.updateConstraints()
+    override func layoutSubviews() {
+        super.layoutSubviews()
         self.makeConstraints()
         self.setupCurrentSelectScale()
     }
