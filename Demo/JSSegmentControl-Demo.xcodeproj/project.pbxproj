@@ -7,6 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		50386FC321CBA2B400B9524F /* Test1ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50386FC221CBA2B400B9524F /* Test1ViewController.swift */; };
+		50386FC721CBA37200B9524F /* Child1ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50386FC521CBA37200B9524F /* Child1ViewController.swift */; };
+		50386FC821CBA37200B9524F /* Child1ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50386FC621CBA37200B9524F /* Child1ViewController.xib */; };
+		50386FCB21CBA38000B9524F /* Child2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50386FC921CBA38000B9524F /* Child2ViewController.swift */; };
+		50386FCC21CBA38000B9524F /* Child2ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50386FCA21CBA38000B9524F /* Child2ViewController.xib */; };
+		50386FCF21CBA38E00B9524F /* Child3ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50386FCD21CBA38E00B9524F /* Child3ViewController.swift */; };
+		50386FD021CBA38E00B9524F /* Child3ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50386FCE21CBA38E00B9524F /* Child3ViewController.xib */; };
+		50386FD321CBA41300B9524F /* ShowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50386FD121CBA41300B9524F /* ShowViewController.swift */; };
+		50386FD421CBA41300B9524F /* ShowViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50386FD221CBA41300B9524F /* ShowViewController.xib */; };
+		50AD5AF821CBD70A009FBA22 /* Test2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50AD5AF721CBD70A009FBA22 /* Test2ViewController.swift */; };
+		50AD5AFA21CBD714009FBA22 /* Test3ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50AD5AF921CBD714009FBA22 /* Test3ViewController.swift */; };
+		50AD5AFD21CBDB2E009FBA22 /* Test4ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50AD5AFC21CBDB2E009FBA22 /* Test4ViewController.swift */; };
+		50AD5B0021CBDCEF009FBA22 /* Test5ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50AD5AFF21CBDCEF009FBA22 /* Test5ViewController.swift */; };
+		50AD5B0321CBE329009FBA22 /* Test6ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50AD5B0221CBE329009FBA22 /* Test6ViewController.swift */; };
+		50AD5B0621CBE670009FBA22 /* Test7ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50AD5B0521CBE670009FBA22 /* Test7ViewController.swift */; };
 		50C02E6921B96CE6003669D3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 50C02E5C21B96CE6003669D3 /* LaunchScreen.storyboard */; };
 		50C02E6A21B96CE6003669D3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 50C02E5E21B96CE6003669D3 /* Main.storyboard */; };
 		50C02E6B21B96CE6003669D3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 50C02E6221B96CE6003669D3 /* Assets.xcassets */; };
@@ -31,6 +46,21 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		50386FC221CBA2B400B9524F /* Test1ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test1ViewController.swift; sourceTree = "<group>"; };
+		50386FC521CBA37200B9524F /* Child1ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Child1ViewController.swift; sourceTree = "<group>"; };
+		50386FC621CBA37200B9524F /* Child1ViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Child1ViewController.xib; sourceTree = "<group>"; };
+		50386FC921CBA38000B9524F /* Child2ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Child2ViewController.swift; sourceTree = "<group>"; };
+		50386FCA21CBA38000B9524F /* Child2ViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Child2ViewController.xib; sourceTree = "<group>"; };
+		50386FCD21CBA38E00B9524F /* Child3ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Child3ViewController.swift; sourceTree = "<group>"; };
+		50386FCE21CBA38E00B9524F /* Child3ViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Child3ViewController.xib; sourceTree = "<group>"; };
+		50386FD121CBA41300B9524F /* ShowViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowViewController.swift; sourceTree = "<group>"; };
+		50386FD221CBA41300B9524F /* ShowViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShowViewController.xib; sourceTree = "<group>"; };
+		50AD5AF721CBD70A009FBA22 /* Test2ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test2ViewController.swift; sourceTree = "<group>"; };
+		50AD5AF921CBD714009FBA22 /* Test3ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test3ViewController.swift; sourceTree = "<group>"; };
+		50AD5AFC21CBDB2E009FBA22 /* Test4ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test4ViewController.swift; sourceTree = "<group>"; };
+		50AD5AFF21CBDCEF009FBA22 /* Test5ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test5ViewController.swift; sourceTree = "<group>"; };
+		50AD5B0221CBE329009FBA22 /* Test6ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test6ViewController.swift; sourceTree = "<group>"; };
+		50AD5B0521CBE670009FBA22 /* Test7ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test7ViewController.swift; sourceTree = "<group>"; };
 		50C02E3F21B96C76003669D3 /* JSSegmentControl-Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "JSSegmentControl-Demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		50C02E5D21B96CE6003669D3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		50C02E5F21B96CE6003669D3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -53,6 +83,77 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		50386FC121CBA29700B9524F /* 遮盖+缩放+滚动条 */ = {
+			isa = PBXGroup;
+			children = (
+				50386FC221CBA2B400B9524F /* Test1ViewController.swift */,
+			);
+			path = "遮盖+缩放+滚动条";
+			sourceTree = "<group>";
+		};
+		50386FC421CBA33200B9524F /* ChildViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				50386FC521CBA37200B9524F /* Child1ViewController.swift */,
+				50386FC621CBA37200B9524F /* Child1ViewController.xib */,
+				50386FC921CBA38000B9524F /* Child2ViewController.swift */,
+				50386FCA21CBA38000B9524F /* Child2ViewController.xib */,
+				50386FCD21CBA38E00B9524F /* Child3ViewController.swift */,
+				50386FCE21CBA38E00B9524F /* Child3ViewController.xib */,
+				50386FD121CBA41300B9524F /* ShowViewController.swift */,
+				50386FD221CBA41300B9524F /* ShowViewController.xib */,
+			);
+			path = ChildViewControllers;
+			sourceTree = "<group>";
+		};
+		50AD5AF521CBD6E5009FBA22 /* 遮盖+缩放 */ = {
+			isa = PBXGroup;
+			children = (
+				50AD5AF721CBD70A009FBA22 /* Test2ViewController.swift */,
+			);
+			path = "遮盖+缩放";
+			sourceTree = "<group>";
+		};
+		50AD5AF621CBD6EE009FBA22 /* 滚动条+缩放 */ = {
+			isa = PBXGroup;
+			children = (
+				50AD5AF921CBD714009FBA22 /* Test3ViewController.swift */,
+			);
+			path = "滚动条+缩放";
+			sourceTree = "<group>";
+		};
+		50AD5AFB21CBDADF009FBA22 /* 禁止标题滚动 */ = {
+			isa = PBXGroup;
+			children = (
+				50AD5AFC21CBDB2E009FBA22 /* Test4ViewController.swift */,
+			);
+			path = "禁止标题滚动";
+			sourceTree = "<group>";
+		};
+		50AD5AFE21CBDCC7009FBA22 /* 指定Container大小 */ = {
+			isa = PBXGroup;
+			children = (
+				50AD5AFF21CBDCEF009FBA22 /* Test5ViewController.swift */,
+			);
+			path = "指定Container大小";
+			sourceTree = "<group>";
+		};
+		50AD5B0121CBE311009FBA22 /* 更改下标 */ = {
+			isa = PBXGroup;
+			children = (
+				50AD5B0221CBE329009FBA22 /* Test6ViewController.swift */,
+			);
+			path = "更改下标";
+			sourceTree = "<group>";
+		};
+		50AD5B0421CBE646009FBA22 /* 刷新内容和标题 */ = {
+			isa = PBXGroup;
+			children = (
+				50AD5B0521CBE670009FBA22 /* Test7ViewController.swift */,
+			);
+			path = "刷新内容和标题";
+			sourceTree = "<group>";
+		};
 		50C02E3621B96C76003669D3 = {
 			isa = PBXGroup;
 			children = (
@@ -110,6 +211,14 @@
 		50C02E6321B96CE6003669D3 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				50386FC421CBA33200B9524F /* ChildViewControllers */,
+				50386FC121CBA29700B9524F /* 遮盖+缩放+滚动条 */,
+				50AD5AF521CBD6E5009FBA22 /* 遮盖+缩放 */,
+				50AD5AF621CBD6EE009FBA22 /* 滚动条+缩放 */,
+				50AD5AFB21CBDADF009FBA22 /* 禁止标题滚动 */,
+				50AD5AFE21CBDCC7009FBA22 /* 指定Container大小 */,
+				50AD5B0121CBE311009FBA22 /* 更改下标 */,
+				50AD5B0421CBE646009FBA22 /* 刷新内容和标题 */,
 				50C02E6421B96CE6003669D3 /* ViewController.swift */,
 			);
 			path = ViewControllers;
@@ -199,8 +308,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				50C02E6921B96CE6003669D3 /* LaunchScreen.storyboard in Resources */,
+				50386FC821CBA37200B9524F /* Child1ViewController.xib in Resources */,
+				50386FCC21CBA38000B9524F /* Child2ViewController.xib in Resources */,
 				50C02E6B21B96CE6003669D3 /* Assets.xcassets in Resources */,
 				50C02E6A21B96CE6003669D3 /* Main.storyboard in Resources */,
+				50386FD021CBA38E00B9524F /* Child3ViewController.xib in Resources */,
+				50386FD421CBA41300B9524F /* ShowViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -211,7 +324,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				50386FC321CBA2B400B9524F /* Test1ViewController.swift in Sources */,
+				50AD5B0021CBDCEF009FBA22 /* Test5ViewController.swift in Sources */,
+				50AD5B0621CBE670009FBA22 /* Test7ViewController.swift in Sources */,
+				50386FD321CBA41300B9524F /* ShowViewController.swift in Sources */,
+				50386FC721CBA37200B9524F /* Child1ViewController.swift in Sources */,
 				50C02E6D21B96CE6003669D3 /* AppDelegate.swift in Sources */,
+				50386FCF21CBA38E00B9524F /* Child3ViewController.swift in Sources */,
+				50AD5AF821CBD70A009FBA22 /* Test2ViewController.swift in Sources */,
+				50386FCB21CBA38000B9524F /* Child2ViewController.swift in Sources */,
+				50AD5AFD21CBDB2E009FBA22 /* Test4ViewController.swift in Sources */,
+				50AD5B0321CBE329009FBA22 /* Test6ViewController.swift in Sources */,
+				50AD5AFA21CBD714009FBA22 /* Test3ViewController.swift in Sources */,
 				50C02E6C21B96CE6003669D3 /* ViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
