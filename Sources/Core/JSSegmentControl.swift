@@ -68,6 +68,10 @@ public class JSSegmentControl: UIView {
         self.titleView.reloadData()
         self.contentView.reloadData()
     }
+    
+    public func selectedIndex(_ index: Int) {
+        self.titleView.selectedIndex(index)
+    }
 
     // MARK: 重写父类方法
     public override func didMoveToSuperview() {
