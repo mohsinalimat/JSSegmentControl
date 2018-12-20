@@ -55,6 +55,7 @@ class JSTitleView: UIView {
     init(frame: CGRect, segmentStyle style: JSSegmentControlStyle) {
         self.style = style
         super.init(frame: frame)
+        self.setupTitleView()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -169,6 +170,10 @@ class JSTitleView: UIView {
     }
     
     // MARK: 设置方法
+    private func setupTitleView() {
+        self.clipsToBounds = true
+    }
+    
     private func setupSubviews() {
         self.addSubview(self.titleScrollView)
         self.setupTitleContainer()
