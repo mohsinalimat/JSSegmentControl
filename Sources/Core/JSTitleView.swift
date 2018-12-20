@@ -47,10 +47,7 @@ class JSTitleView: UIView {
 
     private var dataSourceCount: Int {
         get {
-            guard let titleDataSource = self.titleDataSource else {
-                fatalError("请实现 JSTitleDataSource 协议")
-            }
-            return titleDataSource.numberOfTitles()
+            return self.titleDataSource?.numberOfTitles() ?? 0
         }
     }
     

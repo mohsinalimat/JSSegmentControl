@@ -34,10 +34,7 @@ public class JSSegmentControl: UIView {
     
     private var dataSourceCount: Int {
         get {
-            guard let dataSource = self.dataSource else {
-                fatalError("请实现 JSSegmentControlDataSource 协议")
-            }
-            return dataSource.numberOfSegments()
+            return self.dataSource?.numberOfSegments() ?? 0
         }
     }
     

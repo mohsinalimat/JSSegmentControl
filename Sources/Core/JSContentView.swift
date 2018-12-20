@@ -53,10 +53,7 @@ class JSContentView: UIView {
     }()
     
     private var dataSourceCount: Int {
-        guard let contentDataSource = self.contentDataSource else {
-            fatalError("请实现 JSContentDataSource 协议")
-        }
-        return contentDataSource.numberOfContents()
+        return self.contentDataSource?.numberOfContents() ?? 0
     }
 
     // MARK: 初始化
